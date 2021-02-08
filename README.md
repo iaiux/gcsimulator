@@ -13,8 +13,9 @@ An optimization model can be integrated as Energy Management Systems (EMS) that 
 [1]: R. Aversa, D. Branco, B. Di Martino, and S. Venticinque.  Greenchargesimulation  tool.Advances in Intelligent Systems and Computing,  1150AISC:1343–1351, 2020.
 [2]:A. Amato, R. Aversa, B. Di Martino, M. Scialdone, and S. Venticinque. Asimulation approach for the optimization of solar powered smart migro-grids.Advances in Intelligent Systems and Computing, 611:844–853, 2018.
 
-[user_guide] (docs/gcsim/user_guide/index.html)
-[api documendation](docs/gcsim/api/index.html)
+## Documentation
+* [user_guide] (docs/gcsim/user_guide/index.html)
+* [api documendation]( docs/gcsim/api/index.html)
 
 
 
