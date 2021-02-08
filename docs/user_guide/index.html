@@ -1,0 +1,729 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 6.4.6.2 (Linux)"/>
+	<meta name="author" content="DARIO BRANCO"/>
+	<meta name="created" content="2021-02-06T09:02:00"/>
+	<meta name="changedby" content="DARIO BRANCO"/>
+	<meta name="changed" content="2021-02-06T09:08:00"/>
+	<meta name="AppVersion" content="16.0000"/>
+	<meta name="DocSecurity" content="0"/>
+	<meta name="HyperlinksChanged" content="false"/>
+	<meta name="LinksUpToDate" content="false"/>
+	<meta name="ScaleCrop" content="false"/>
+	<meta name="ShareDoc" content="false"/>
+	<style type="text/css">
+		@page { size: 21cm 29.7cm; margin-left: 2cm; margin-right: 2cm; margin-top: 2.5cm; margin-bottom: 2cm }
+		p { margin-bottom: 0.25cm; direction: ltr; line-height: 115%; text-align: left; orphans: 2; widows: 2; background: transparent }
+		a:link { color: #0000ff; text-decoration: underline }
+	</style>
+</head>
+<body lang="it-IT" link="#0000ff" vlink="#800000" dir="ltr"><p align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="3" style="font-size: 13pt"><span lang="en-GB"><b>USER
+GUIDE</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="3" style="font-size: 13pt"><span lang="en-GB"><b>INSTALLATION
+OF CONTAINERS</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p style="margin-top: 0.42cm; margin-bottom: 0.42cm; line-height: 100%">
+<font color="#000000"><font face="Arial, serif"><font size="4" style="font-size: 16pt"><span lang="en-US">The
+open source github repository</span></font></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">The
+simulator software is available through the github link
+</span></font></font><a href="https://github.com/greencharge/gcsimulator"><font color="#1155cc"><font face="Arial, serif"><span lang="en-US"><u>https://github.com/greencharge/gcsimulator</u></span></font></font></a><font color="#000000"><font face="Arial, serif"><span lang="en-US">.</span></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">The
+repository contains scripts to build locally dockers containers
+containing the different components shown in the previous sections.
+In particular, in addition to the source code of the simulator engine
+and of the GUI,&nbsp; a dummy EMS implemented in javascript is
+provided for testing purpose. It is the same software that runs in
+the web page of the integration tool. Many docker compose scripts to
+instantiate the simulator with or without the GUI.&nbsp;</span></font></font></p>
+<p lang="en-US" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">The
+repository contains also the installation and user manual, the API
+documentation and the software. We invite the reader to refer to the
+github repository to get the update version of the software
+documentation.</span></font></font></p>
+<p style="margin-top: 0.42cm; margin-bottom: 0.42cm; line-height: 100%">
+<font color="#000000"><font face="Arial, serif"><font size="4" style="font-size: 16pt"><span lang="en-US">How
+to build the simulation platform</span></font></font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">The
+only requirements to build the simulation platform is the
+installation of docker and of docker-compose, on any windows, Linux
+or Apple machine.</span></font></font></p>
+<p lang="en-US" style="margin-bottom: 0cm; line-height: 100%"><br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">The
+easiest way to build the simulation platform is to use the
+docker-compose command.</span></font></font></p>
+<p lang="en-US" style="margin-bottom: 0.42cm; line-height: 100%"><br/>
+<br/>
+
+</p>
+<table width="624" cellpadding="7" cellspacing="0">
+	<col width="608"/>
+
+	<tr>
+		<td width="608" valign="top" bgcolor="#999999" style="background: #999999" style="border: 1.00pt solid #000000; padding: 0.18cm"><p>
+			<font color="#000000"><font face="Arial, serif">docker-compose&nbsp;
+			up</font></font></p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0.42cm; line-height: 100%"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">A
+docker-compose configuration is provided to download the images and
+to instantiate all the containers, which communicate on a virtual
+network.</span></font></font></p>
+<p lang="en-US" style="margin-bottom: 0.42cm; line-height: 100%"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US">Nevertheless,
+the user can build the container image locally. This is the
+recommended solution to work with the last updated image. In this
+case, the images must be built before running the docker-compose
+command:</span></font></font></p>
+<p lang="en-US" style="margin-bottom: 0.42cm; line-height: 100%"><br/>
+<br/>
+
+</p>
+<table width="624" cellpadding="7" cellspacing="0">
+	<col width="608"/>
+
+	<tr>
+		<td width="608" valign="top" bgcolor="#999999" style="background: #999999" style="border: 1.00pt solid #000000; padding: 0.18cm"><p style="margin-bottom: 0cm">
+			<font color="#000000"><font face="Arial, serif"><span lang="en-US">cd
+			Dockers/gcsim</span></font></font></p>
+			<p style="margin-bottom: 0cm"><font color="#000000"><font face="Arial, serif"><span lang="en-US">docker
+			build . --tag gcsim</span></font></font></p>
+			<p style="margin-bottom: 0cm"><font color="#000000"><font face="Arial, serif"><span lang="en-US">cd
+			../Dockers/gcscheduler</span></font></font></p>
+			<p style="margin-bottom: 0cm"><font color="#000000"><font face="Arial, serif"><span lang="en-US">docker
+			build . --tag gcscheduler</span></font></font></p>
+			<p><font color="#000000"><font face="Arial, serif">docker-compose&nbsp;
+			up</font></font></p>
+		</td>
+	</tr>
+</table>
+<p style="margin-bottom: 0.42cm; line-height: 100%"><br/>
+<br/>
+
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><font face="Arial, serif"><span lang="en-US"><i><b>N.B.:
+At the state of art the GUI is provided only as a docker image in
+docker-hub</b></i></span></font></font></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="3" style="font-size: 13pt"><span lang="en-GB"><b>SCENARIO’S
+GENERATION</b></span></font></font></font></font></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font color="#000000"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+this section, we describe in detail the steps to configure the
+simulation environment&nbsp;using the developed GUI. The
+configuration should&nbsp;include&nbsp;the different involved energy
+actors: Producers, Consumers, Prosumers. Each of them is
+characterized by a specific energy profile that, in some cases
+(i.e.&nbsp;the PVs) that profile is automatically generated.</span></font></font></font></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">The
+final goal of the configuration phase is, regardless of where the
+data comes from (from the GUI or from the pilots) to produce the
+files&nbsp;</span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>neighbourhood.xml</b></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">&nbsp;and&nbsp;</span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>loads.xml</b></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">.
+</span></font></font></font></font>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">For
+the evaluator, a Graphical User interface is provided. Its extension
+with additional plugins for the automation of the evaluation is an
+ongoing work.</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">At
+the state of art, we provide a deployment configuration that allows
+for execution the GUI in a docker container, which can be accessed by
+a&nbsp;novnc&nbsp;web interface.</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">The
+strength of this deployment configuration is that the user does not
+need to install anything a part docker and docker-compose on its
+machine, and can run the simulation using the browser.</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">This
+image is particularly useful since the configurator GUI was developed
+in python and would only be available via the operating system
+interface and not via the web. </span>
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">However,
+this container allows the screen content of an O.S. to be displayed
+on a web page. This expedient allows the use of this GUI in a more
+flexible way and directly from a web browser. The&nbsp;docker
+containing&nbsp;the GUI is automatically launched at the execution of
+the docker-compose up command and exposes itself on a&nbsp;web page
+reachable by the browser at the address </span><span lang="en-GB"><b>localhost:
+6080</b></span><span lang="en-GB">. </span>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">The
+web page will show an operating system where the simulator GUI is
+pre-installed and executable. Interface examples are shown later in
+the paragraph on how to create a scenario via the GUI.</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">An
+example of the web screen that will open when the container is run is
+the following:</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_4641abe08c31d996.png" name="Immagine 4" align="bottom" width="643" height="354" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">1</span> - The Web Page</i></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">As
+you can see from the screen, you have complete control of an
+operating system directly from a web browser.</span><span lang="en-US">&nbsp;</span></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_329a2d54c54ae0c5.png" name="Immagine 3" align="bottom" width="643" height="462" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">2</span> - Control Panel</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">The
+first phase of a configuration scenario is to build topologically the
+neighborhood. In order to achieve the goal we have to open the Static
+Configuration Tab, as shown in the next figure:</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_7aa8967e01858801.png" name="Immagine 5" align="bottom" width="643" height="429" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">3</span> - Static Configuration</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">At
+the end of this phase we will build a neighborhood.xml file necessary
+to the simulator. We can load a prebuilt neighborhood.xml file
+directly choosing one from the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>browse</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+button and than pressing the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>load</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+button. Note that the is necessary to load only a file
+neighborhood.xml that is built according to the definition.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">We
+can also build a new configuration from scratch and in order to do
+that we have to add how many houses and charging station we want
+through the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>add
+house</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+and </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>add
+charging station</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+buttons. The screen will change as shown in the next figure. </span></font></font></font></font>
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_5175e50986fc8528.png" name="Immagine 6" align="bottom" width="643" height="431" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">4</span><span lang="en-US">
+- Static Configuration with Energy Hubs</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Add
+a Device to the neighborhood</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+order to add a device to the neighborhood we have to press the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>select
+Device</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+button, a window like the one in the next figure will appear:</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_cab944e749932ab1.png" name="Immagine 8" align="bottom" width="579" height="351" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">5</span><span lang="en-US">
+- Device Repository</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">From
+this table we can select a device previously created and then press
+on </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>select
+Device</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+to add it to the configuration or create a new device model by
+pressing the corresponding button. </span></font></font></font></font>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+the latter case a new window will appear:</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_56907a6cdad2ddf0.png" name="Immagine 9" align="bottom" width="402" height="321" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">6</span><span lang="en-US">
+- Create New Device Window</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+which you can select the type of device you want to add (background
+load, heater cooler, EV, generic schedulable load, battery, producer)
+giving only a name and a list of possible csv file containing the
+consumption or production timeseries if needed. </span></font></font></font></font>
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+the EV case we can also create a model from scratch and then select
+it to create a new car by pressing the corresponding button:</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_4a24653176e17ff6.png" name="Immagine 10" align="bottom" width="643" height="444" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">7</span><span lang="en-US">
+- Create New EV model Window</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">Once
+we have selected the device we want to add to the configuration it
+will be shown in the main window:</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_44c16afba166fa81.gif" name="Shape1" alt="Shape1" align="left" hspace="3" vspace="3"/>
+<img src="index_html_8bcc01b28ee6b8d5.png" name="Immagine 11" align="bottom" width="573" height="382" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">8</span><span lang="en-US">
+- Add device to scenario</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">At
+this point you have to select how many device of this kind you want
+to add using the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>multiplicity</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+number picker and select to which house or charging station you want
+to assign your device by pressing the corresponding button and
+confirm the changes with the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>add
+device</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+button. </span></font></font></font></font>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">You
+can repeat this workflow until you are satisfied with the topological
+conformation of the scenario.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>How
+to setup up the events</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">Once
+the scenario is created we have to set up the events for each device
+we created previously. </span></font></font></font></font>
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">You
+can load a previous created load.xml file doing the same done for the
+neighborhood.xml.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_60f1d5b4daee1b9b.png" name="Immagine 13" align="bottom" width="643" height="428" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">9</span><span lang="en-US">
+- Dynamic Settings</span></i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">We
+can add events to device one by one or we can use the </span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><i><u><b>load
+to multiple device</b></u></i></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">
+feature that allow you to select more than one device at each time
+(they must be of the same type e.g. ev, generic loads). The window
+that will appear depends on the type of device you  mean to
+configure. </span></font></font></font></font>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Schedulable
+Events</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_e1a65569d58f99fb.png" name="Immagine 14" align="bottom" width="390" height="303" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">10</span> - Scedulable load events</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">For
+schedulable events we have to setup the earliest and the latest start
+time and the creation time. We can also choose to have the event
+repeat during the day and set after how long it should be repeated
+(using the delta bar). You can also choose to randomize the times by
+selecting an interval in which the times will be taken from. You have
+also to select a profile from the available profile list in the
+possible profile you set in the previous section.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>EV
+Events</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_919ee403e51ba9f2.png" name="Immagine 15" align="bottom" width="461" height="370" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">11</span> - EV Event</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">For
+EV you have to choose the arrival, departure and booking time but
+also the status of charge and the target status of charge. </span></font></font></font></font>
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Producer
+Events</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_82702548a464867a.png" name="Immagine 16" align="bottom" width="399" height="309" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">12</span> - Producer Event</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">For
+producers events you have only to set the creation time and the
+production profile that the device has to perform.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Not
+schedulable Events</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_aaf658acf716ec42.png" name="Immagine 18" align="bottom" width="521" height="335" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">13</span> - N-S Event</i></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">For
+not schedulable events you have only to choose the consumption
+profile or, in the heater/cooler case, the timeseries with the
+minimum and the maximum energy consumption profile. </span></font></font></font></font>
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Start
+and Stop Simulations</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">Once
+all the events have been set it is possible to confirm the
+configuration by clicking on the save configuration button.</span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">At
+this point, to start the simulation, all that remains is to set the
+day and the starting and ending time of the simulation session.</span></font></font><font color="#000000"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">&nbsp;</span></font></font></font><font color="#000000"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-US">&nbsp;</span></font></font></font></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">In
+the next sections we&nbsp;describe&nbsp;the&nbsp;main&nbsp;features
+of the GUI and&nbsp;through a complete&nbsp;Use Case diagram how&nbsp;to,
+from scratch,&nbsp;configure and start a simulation session.</span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-US">&nbsp;</span></font></font></font></font></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">The&nbsp;</span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB"><b>Control&nbsp;Panel</b></span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-GB">&nbsp;represents
+a kind of&nbsp;dashboard of the tool to set and overlook a simulation
+session&nbsp;(fig.&nbsp;14).&nbsp;</span></font></font><font face="Calibri, serif"><font size="2" style="font-size: 11pt"><span lang="en-US">&nbsp;</span></font></font></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">In
+this panel, after completing the configuration phase, we can fix&nbsp;the
+day and&nbsp;the starting time&nbsp;of the simulation. Pressing the
+start button activates all the simulation agents and starts the
+scheduling process.</span><span lang="en-US">&nbsp;</span><span lang="en-GB">&nbsp;When
+the user presses on start, a start signal is sent to the simulator
+and scheduler which start their work.&nbsp;</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">In
+the GUI screen there is also a loading bar that shows the percentage
+of completion of the current simulation and, given the stochastic
+nature of the schedulers, it is possible to select how many times you
+want to repeat the same simulation for a single configuration. There
+is also a pause simulation button which allows the user to pause a
+simulation. </span>
+</p>
+<p align="center" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_678cee86d143125.png" name="Immagine 1" align="bottom" width="584" height="406" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i><span lang="en-US">Figure
+</span><span style="background: #c0c0c0">14</span><span lang="en-US">
+- Start a simulation</span></i></font></font></p>
+<p lang="en-US" align="justify" style="margin-bottom: 0.28cm; line-height: 108%">
+<br/>
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font face="Calibri, serif"><font size="3" style="font-size: 13pt"><span lang="en-GB"><b>VISUALIZATION
+OF RESULTS</b></span></font></font></font></font></p>
+<p lang="en-GB" align="justify" style="margin-bottom: 0cm; line-height: 100%">
+<br/>
+
+</p>
+<p lang="en-US" align="justify" style="margin-bottom: 0.28cm; line-height: 108%">
+<br/>
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">In
+order to generate a web report that summarizes the simulation results
+a specific command line utility is currently available. The report is
+exported as a web page that can be visualized by any browser offline.
+It can be distributed and shared as a common archive.</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%">&nbsp;<span lang="en-GB">The
+report contains 5 sections.</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">The&nbsp;</span><span lang="en-GB"><b>Parameters&nbsp;</b></span><span lang="en-GB">section
+shows a list of synthetic parameters whose value is computed from the
+results of the simulation. For each parameter it eventually shows the
+expected value, if for that simulation scenario these values have
+been provided in advance for testing purpose. The list of parameters
+is shown in Figure. XX.</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_c78c64ba1da798b0.png" name="Immagine 22" align="bottom" width="643" height="114" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">15</span> - Parameter Section</i></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%">&nbsp;</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><span lang="en-GB">The&nbsp;</span></font><font color="#000000"><span lang="en-GB"><b>Checks&nbsp;</b></span></font><font color="#000000"><span lang="en-GB">section
+visualizes the result of coherence checking process.</span></font><font color="#000000"><span lang="en-US">&nbsp;</span></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><font color="#000000"><span lang="en-GB">The
+list of checks is shown in Figure YY</span></font><font color="#000000"><span lang="en-US">&nbsp;</span></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_8135b9cae74f9ccd.png" name="Immagine 21" align="bottom" width="643" height="190" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">16</span> - Checks Section</i></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%">&nbsp;</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">The&nbsp;</span><span lang="en-GB"><b>Charts&nbsp;</b></span><span lang="en-GB">section
+visualizes some charts which summarize the energy utilization by
+the&nbsp;neghiborhoud. In Figure ZZ we see the power consumed from
+the grid, the self-consumption and the power consumed by scheduled
+devices.</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_91b2222159ccce7f.png" name="Immagine 20" align="bottom" width="643" height="450" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">17</span> - Charts Section</i></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%">&nbsp;</p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%"><span lang="en-GB">Finally,
+the&nbsp;</span><span lang="en-GB"><b>KPIs&nbsp;</b></span><span lang="en-GB">list
+the energy related&nbsp;&nbsp;GreenCharge&nbsp;KPIs which can be
+evaluated from the output of simulation.</span><span lang="en-US">&nbsp;</span></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%; page-break-after: avoid">
+<img src="index_html_f74347d817c0bee2.png" name="Immagine 19" align="bottom" width="643" height="168" border="0"/>
+</p>
+<p align="center" style="margin-bottom: 0.35cm; line-height: 100%"><font color="#44546a"><font size="2" style="font-size: 9pt"><i>Figure
+<span style="background: #c0c0c0">18</span> - Kpi Section</i></font></font></p>
+<p align="justify" style="margin-bottom: 0cm; line-height: 100%">&nbsp;</p>
+<p align="justify" style="margin-bottom: 0.28cm; line-height: 108%"><br/>
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0.28cm; line-height: 108%"><br/>
+<br/>
+
+</p>
+<p align="justify" style="margin-bottom: 0.28cm; line-height: 108%"><br/>
+<br/>
+
+</p>
+</body>
+</html>
