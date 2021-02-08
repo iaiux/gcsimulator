@@ -14,7 +14,7 @@ An optimization model can be integrated as Energy Management Systems (EMS) that 
 [2]:A. Amato, R. Aversa, B. Di Martino, M. Scialdone, and S. Venticinque. Asimulation approach for the optimization of solar powered smart migro-grids.Advances in Intelligent Systems and Computing, 611:844–853, 2018.
 
 ## Documentation
-* [User Guide](docs/gcsim/user_guide/index.html)
+* [User Guide](docs/user_guide/index.html)
 * [API documentation](docs/gcsim/api/index.html)
 
 
