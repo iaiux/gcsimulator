@@ -41,6 +41,18 @@
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+<span class="target" id="module-gcsim"></span><dl class="class">
+<dt id="gcsim.GCDaemon">
+<em class="property">class </em><code class="descclassname">gcsim.</code><code class="descname">GCDaemon</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gcsim.GCDaemon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">daemons.prefab.run.RunDaemon</span></code></p>
+<dl class="staticmethod">
+<dt id="gcsim.GCDaemon.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gcsim.GCDaemon.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the daemon logic.</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-gcclient"></span><div class="section" id="simulator">
 <h2>Simulator<a class="headerlink" href="#simulator" title="Permalink to this headline">¶</a></h2>
 <p>This  module allows for starting, stopping and checking the status of the simulator and eventually of the optimizer</p>
@@ -60,12 +72,8 @@ command line arguments :return:</p>
 <code class="descclassname">gcclient.</code><code class="descname">start_optimizer</code><span class="sig-paren">(</span><em>optimizer</em>, <em>policy</em><span class="sig-paren">)</span><a class="headerlink" href="#gcclient.start_optimizer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Args:</dt>
-<dd><dl class="first docutils">
-<dt>optimizer: the optimizer to start (should be supported dummy, eurecat,</dt>
-<dd>oslo)</dd>
-</dl>
-<p class="last">policy: the optimization policy (Es: cheapest, greenest, earliest)</p>
-</dd>
+<dd>optimizer: the optimizer to start (should be supported dummy, eurecat, oslo)
+policy: the optimization policy (Es: cheapest, greenest, earliest)</dd>
 <dt>Returns:</dt>
 <dd>None</dd>
 </dl>
@@ -195,12 +203,14 @@ command line arguments :return:</p>
 <dl class="classmethod">
 <dt id="agents.setup.Entities.enqueue_event">
 <em class="property">classmethod </em><code class="descname">enqueue_event</code><span class="sig-paren">(</span><em>timestamp</em>, <em>event</em>, <em>unique_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.setup.Entities.enqueue_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method is used to enqueue an event in the event queue.
-Args:</p>
-<blockquote>
-<div>timestamp: Event time.
+<dd><p>This method is used to enqueue an event in the event queue.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>timestamp: Event time.
 event: The event.
-unique_id: An unique id in case of same timestamp for two events.</div></blockquote>
+unique_id: An unique id in case of same timestamp for two events.</dd>
+</dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -309,11 +319,12 @@ unique_id: An unique id in case of same timestamp for two events.</div></blockqu
 <dl class="function">
 <dt id="agents.setup.makeNewSimulation">
 <code class="descclassname">agents.setup.</code><code class="descname">makeNewSimulation</code><span class="sig-paren">(</span><em>pathneigh</em>, <em>pathload</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.setup.makeNewSimulation" title="Permalink to this definition">¶</a></dt>
-<dd><p>This Method create all simulation directories.
-Args:</p>
-<blockquote>
-<div>pathneigh: The neighborhood.xml path.
-pathload: The loads.xml path.</div></blockquote>
+<dd><p>This Method create all simulation directories.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>pathneigh: The neighborhood.xml path.
+pathload: The loads.xml path.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -349,18 +360,20 @@ pathload: The loads.xml path.</div></blockquote>
 <dt id="agents.manager.SetupModule">
 <em class="property">class </em><code class="descclassname">agents.manager.</code><code class="descname">SetupModule</code><span class="sig-paren">(</span><em>jid</em>, <em>password</em>, <em>verify_security=False</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.manager.SetupModule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.agent.Agent</span></code></p>
-<p>SetupModule Agent is used for start/stop dispatching messages.
-Args:</p>
-<blockquote>
-<div>Agent: The spade Agent.</div></blockquote>
+<p>SetupModule Agent is used for start/stop dispatching messages.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>Agent: The spade Agent.</dd>
+</dl>
 <dl class="class">
 <dt id="agents.manager.SetupModule.StartService">
 <em class="property">class </em><code class="descname">StartService</code><a class="headerlink" href="#agents.manager.SetupModule.StartService" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.behaviour.OneShotBehaviour</span></code></p>
-<p>The startService Behaviour is used for start dispatcher.
-Args:</p>
-<blockquote>
-<div>OneShotBehaviour: The behaviour’s type.</div></blockquote>
+<p>The startService Behaviour is used for start dispatcher.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>OneShotBehaviour: The behaviour’s type.</dd>
+</dl>
 <dl class="method">
 <dt id="agents.manager.SetupModule.StartService.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.manager.SetupModule.StartService.run" title="Permalink to this definition">¶</a></dt>
@@ -374,10 +387,11 @@ To be implemented by user.</p>
 <dt id="agents.manager.SetupModule.StopService">
 <em class="property">class </em><code class="descname">StopService</code><a class="headerlink" href="#agents.manager.SetupModule.StopService" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.behaviour.OneShotBehaviour</span></code></p>
-<p>The stopService Behaviour is used for stop dispatcher.
-Args:</p>
-<blockquote>
-<div>OneShotBehaviour: The behaviour’s type.</div></blockquote>
+<p>The stopService Behaviour is used for stop dispatcher.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>OneShotBehaviour: The behaviour’s type.</dd>
+</dl>
 <dl class="method">
 <dt id="agents.manager.SetupModule.StopService.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.manager.SetupModule.StopService.run" title="Permalink to this definition">¶</a></dt>
@@ -402,29 +416,145 @@ To be implemented by user.</p>
 <dl class="function">
 <dt id="agents.dispatcher.calculateConsumption">
 <code class="descclassname">agents.dispatcher.</code><code class="descname">calculateConsumption</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.dispatcher.calculateConsumption" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method calculates consumption in KW of a load consumer. It is used in the delete message.
-Args:</p>
-<blockquote>
-<div>file: Timeseries whose consumption is to be calculated</div></blockquote>
+<dd><p>This method calculates consumption in KW of a load consumer. It is used in the delete message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>file: Timeseries whose consumption is to be calculated</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="agents.dispatcher.calculateTime">
 <code class="descclassname">agents.dispatcher.</code><code class="descname">calculateTime</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.dispatcher.calculateTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function calculates the execution time of a scheduled load. It is used to put DeleteMessage in sharedQueue at the right time.
-Args:</p>
-<blockquote>
-<div>file: Timeseries whose time delta is to be calculated</div></blockquote>
+<dd><dl class="docutils">
+<dt>This function calculates the execution time of a scheduled load. It is used to put DeleteMessage in sharedQueue</dt>
+<dd>at the right time.</dd>
+<dt>Args:</dt>
+<dd>file: Timeseries whose time delta is to be calculated</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="agents.dispatcher.switchInTime">
 <code class="descclassname">agents.dispatcher.</code><code class="descname">switchInTime</code><span class="sig-paren">(</span><em>file</em>, <em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.dispatcher.switchInTime" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function shifts a timeseries over time based on the ast received from the scheduler.
-Args:</p>
-<blockquote>
-<div>file: Timeseries whose time is to be shift
-ast:  New assigned starting Time</div></blockquote>
+<dd><p>This function shifts a timeseries over time based on the ast received from the scheduler.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>file: Timeseries whose time is to be shift
+ast:  New assigned starting Time</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-agents.restAdaptor"></span><div class="section" id="restadaptor">
+<h2>RESTAdaptor<a class="headerlink" href="#restadaptor" title="Permalink to this headline">¶</a></h2>
+<p>This agent create a REST server in order to communicate with REST schedulers.</p>
+<dl class="class">
+<dt id="agents.restAdaptor.Adaptor">
+<em class="property">class </em><code class="descclassname">agents.restAdaptor.</code><code class="descname">Adaptor</code><span class="sig-paren">(</span><em>jid</em>, <em>password</em>, <em>verify_security=False</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.agent.Agent</span></code></p>
+<p>Adaptor used for the REST protocol.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>Agent: The spade Agent.</dd>
+</dl>
+<dl class="class">
+<dt id="agents.restAdaptor.Adaptor.MessageManager">
+<em class="property">class </em><code class="descname">MessageManager</code><span class="sig-paren">(</span><em>period</em>, <em>start_at=None</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.MessageManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.behaviour.PeriodicBehaviour</span></code></p>
+<dl class="method">
+<dt id="agents.restAdaptor.Adaptor.MessageManager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.MessageManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Body of the behaviour.
+To be implemented by user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.restAdaptor.Adaptor.exposeGetRestAPI">
+<code class="descname">exposeGetRestAPI</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.exposeGetRestAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>GET API used by schedulers to get a message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>request: the REST request</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.restAdaptor.Adaptor.exposePostRestAPI">
+<code class="descname">exposePostRestAPI</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.exposePostRestAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>POST API used by schedulers to post an answer to the dispatcher.
+It recieve a file and write the content in simulation directory or a general message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>request: the REST request</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.restAdaptor.Adaptor.get_time">
+<code class="descname">get_time</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>GET API used by schedulers to get simulation time.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>request: the REST request</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.restAdaptor.Adaptor.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.restAdaptor.Adaptor.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup agent before startup.
+This coroutine may be overloaded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-agents.xmppAdaptor"></span><div class="section" id="xmppadaptor">
+<h2>XMPPAdaptor<a class="headerlink" href="#xmppadaptor" title="Permalink to this headline">¶</a></h2>
+<p>This agent create a REST server in order to communicate with XMPP schedulers.</p>
+<dl class="class">
+<dt id="agents.xmppAdaptor.Adaptor">
+<em class="property">class </em><code class="descclassname">agents.xmppAdaptor.</code><code class="descname">Adaptor</code><span class="sig-paren">(</span><em>jid</em>, <em>password</em>, <em>verify_security=False</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.xmppAdaptor.Adaptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.agent.Agent</span></code></p>
+<p>Adaptor used for the XMPP protocol.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>Agent: The spade Agent.</dd>
+</dl>
+<dl class="class">
+<dt id="agents.xmppAdaptor.Adaptor.XMPPMessageManager">
+<em class="property">class </em><code class="descname">XMPPMessageManager</code><span class="sig-paren">(</span><em>period</em>, <em>start_at=None</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.xmppAdaptor.Adaptor.XMPPMessageManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spade.behaviour.PeriodicBehaviour</span></code></p>
+<dl class="method">
+<dt id="agents.xmppAdaptor.Adaptor.XMPPMessageManager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.xmppAdaptor.Adaptor.XMPPMessageManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Body of the behaviour.
+To be implemented by user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.xmppAdaptor.Adaptor.exposePostRestAPI">
+<code class="descname">exposePostRestAPI</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#agents.xmppAdaptor.Adaptor.exposePostRestAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>POST API used by schedulers to post a timeseries.
+It recieve a file and write the content in simulation directory</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>request: the REST request</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="agents.xmppAdaptor.Adaptor.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#agents.xmppAdaptor.Adaptor.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup agent before startup.
+This coroutine may be overloaded.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -445,10 +575,11 @@ ast:  New assigned starting Time</div></blockquote>
 <dl class="classmethod">
 <dt id="utils.config.Configuration.set_config_file">
 <em class="property">classmethod </em><code class="descname">set_config_file</code><span class="sig-paren">(</span><em>config_file='config.yml'</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.config.Configuration.set_config_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the name of the configuration file to be read.
-Args:</p>
-<blockquote>
-<div>config_file: The path of configuration file.</div></blockquote>
+<dd><p>Set the name of the configuration file to be read.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>config_file: The path of configuration file.</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -465,164 +596,179 @@ Args:</p>
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.background">
 <em class="property">classmethod </em><code class="descname">background</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.background" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Background message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Background message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.booking_request">
 <em class="property">classmethod </em><code class="descname">booking_request</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.booking_request" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the booking_request message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the booking_request message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.chargingpoint">
 <em class="property">classmethod </em><code class="descname">chargingpoint</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.chargingpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyHub for Charging Point message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyHub for Charging Point message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.chargingstation">
 <em class="property">classmethod </em><code class="descname">chargingstation</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.chargingstation" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyHub for Charging Station message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyHub for Charging Station message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.create_Battery">
 <em class="property">classmethod </em><code class="descname">create_Battery</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.create_Battery" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Create Battery message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Create Battery message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.create_ev">
 <em class="property">classmethod </em><code class="descname">create_ev</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.create_ev" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Create Ev message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Create Ev message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.create_load">
 <em class="property">classmethod </em><code class="descname">create_load</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.create_load" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Create Load message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Create Load message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.create_producer">
 <em class="property">classmethod </em><code class="descname">create_producer</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.create_producer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Create Producer message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Create Producer message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.delete_load">
 <em class="property">classmethod </em><code class="descname">delete_load</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.delete_load" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Delete load message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Delete load message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.end">
 <em class="property">classmethod </em><code class="descname">end</code><span class="sig-paren">(</span><em>actual_time</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.end" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the end message.
-Args:</p>
-<blockquote>
-<div>actual_time: Simulation Time.</div></blockquote>
+<dd><p>This method creates the end message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>actual_time: Simulation Time.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.energyCost">
 <em class="property">classmethod </em><code class="descname">energyCost</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.energyCost" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyCost message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyCost message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.energyCostProducer">
 <em class="property">classmethod </em><code class="descname">energyCostProducer</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.energyCostProducer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyCost for producers message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyCost for producers message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.energyMix">
 <em class="property">classmethod </em><code class="descname">energyMix</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.energyMix" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyMix message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyMix message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.heatercooler">
 <em class="property">classmethod </em><code class="descname">heatercooler</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.heatercooler" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the HeaterCooler message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the HeaterCooler message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.house">
 <em class="property">classmethod </em><code class="descname">house</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.house" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyHub for houses message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyHub for houses message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
@@ -634,29 +780,34 @@ protocol_version: Distinguish between schedulers.</div></blockquote>
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.neighborhood">
 <em class="property">classmethod </em><code class="descname">neighborhood</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.neighborhood" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the EnergyHub for neighborhood message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the EnergyHub for neighborhood message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="utils.MessageFactory.MessageFactory.update_producer">
 <em class="property">classmethod </em><code class="descname">update_producer</code><span class="sig-paren">(</span><em>device</em>, <em>time</em>, <em>protocol_version</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.MessageFactory.MessageFactory.update_producer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates the Update Producer message.
-Args:</p>
-<blockquote>
-<div>device: Device the message refers to.
+<dd><p>This method creates the Update Producer message.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>device: Device the message refers to.
 time: Simulation Time.
-protocol_version: Distinguish between schedulers.</div></blockquote>
+protocol_version: Distinguish between schedulers.</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<span class="target" id="module-utils.visualization"></span><dl class="class">
+<span class="target" id="module-utils.visualization"></span><div class="section" id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>This Class deals with the creation of outputs data and charts.</p>
+<dl class="class">
 <dt id="utils.visualization.Intersection">
 <em class="property">class </em><code class="descclassname">utils.visualization.</code><code class="descname">Intersection</code><a class="headerlink" href="#utils.visualization.Intersection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -808,6 +959,7 @@ outfile:</dd>
 </dl>
 </dd></dl>
 
+</div>
 </div>
 
 
