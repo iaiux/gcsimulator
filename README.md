@@ -4,7 +4,7 @@ The simulator is based on the discrete-event simulation (DES) model where the sy
 
 
 The Container based deployment configuration allows for an easy deploy of the simulation platform on the user’s workstation, independently from the Operating System. The software architecture is shown in Figure 
-![Contaner based deployment](https://greencharge.github.io/gcdocker/docs/images/docker_arc.png)
+![Contaner based deployment](https://greencharge.github.io/gcsimulator/docs/images/docker_arc.png)
 
 Using both a virtual or a real network many containerized components interoperate through a loosely coupled integration. The blue box represents the simulation engine and its  Graphical User Interface (GUI). The two components use a volume to access simulation input and output data such as configuration of scenarios, time-series and  results.
 The XMPP server provides a peer-to-peer communication overlay for multi-agents  distributed implementation. A volume is used to save user-credentials, as the simulator can be used by multiple users who can run their simulations in parallel, in one or in multiple containers.
@@ -16,7 +16,7 @@ An optimization model can be integrated as Energy Management Systems (EMS) that 
 
 ## Documentation
 * [User Guide](https://GreenCharge.github.io/gcdocker/docs/user_guide/index.html)
-* [API documentation](https://GreenCharge.github.io/gcdocker/docs/gcsim/api/index.html)
+* [API documentation](https://GreenCharge.github.io/gcsimulator/docs/gcsim/api/index.html)
 
 
 ## Build
