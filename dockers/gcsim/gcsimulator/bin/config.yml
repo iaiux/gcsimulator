@@ -1,0 +1,20 @@
+---
+config:
+  adaptor: adaptor
+  adaptor_address: greencharge.simulator
+  adaptor_port: 10021
+  date: 12/12/15
+  protocol: '2.0'
+  scheduler: actormanager
+  simulation: P2D1Test
+  simulation_dir: /home/gc/Simulations
+  simulator: taskmanager
+  userjid: demo@greencharge.local
+  webdir: /var/www/Simulations/demo
+  workingdir: /home/gc/bin
+  xmpp_password: demo
+  web_url: http://localhost/demo
+  forcedwait: false
+  optimization_criteria: earliest
+  simulation_view: 2021-09-22-P2D1_weekly
+...

@@ -1,0 +1,16 @@
+config:
+  adaptor: adaptor
+  adaptor_address: parsec2.unicampania.it
+  adaptor_port: 10021
+  date: 12/12/15
+  protocol: '2.0'
+  scheduler: actormanager
+  simulation: P1D3
+  simulation_dir: /home/branco/projects/simulatorLatest/users/demo/Simulations
+  simulator: taskmanager
+  userjid: eurecat@parsec2.unicampania.it
+  webdir: /home/branco/public_html/
+  workingdir: /home/branco/projects/simulatorLatest/dockers/gcsim/gcsimulator/bin
+  xmpp_password: gceurecat01
+  web_url: http://localhost/demo
+  forcedwait: false

@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<Neighborhood peakLoad2="600.0">
+	<fleet>
+		<ecar>
+			<id>152</id>
+			<aat>59124</aat>
+			<adt>133224</adt>
+			<pdt>133224</pdt>
+			<pat>59124</pat>
+			<targetSoc>null</targetSoc>
+			<creation_time>0</creation_time>
+			<soc>null</soc>
+			<priority>null</priority>
+			<v2gminSoc>0</v2gminSoc>
+			<V2G>0</V2G>
+		</ecar>
+		<ecar>
+			<id>170</id>
+			<aat>59124</aat>
+			<adt>133224</adt>
+			<pdt>133224</pdt>
+			<pat>59124</pat>
+			<targetSoc>null</targetSoc>
+			<creation_time>0</creation_time>
+			<soc>null</soc>
+			<priority>null</priority>
+			<v2gminSoc>0</v2gminSoc>
+			<V2G>0</V2G>
+		</ecar>
+	</fleet>
+	<chargingStation id="1" peakLoad="500" code="P1D1L1" CPinfo="72">
+		<device>
+			<id>434</id>
+			<profile>2021-04-13-SolarPVRoof.csv</profile>
+			<est>0</est>
+			<lst>0</lst>
+			<creation_time>0</creation_time>
+			<type>load</type>
+			<energy_cost>load</energy_cost>
+		</device>
+		<battery>
+			<id>1</id>
+			<startTime>61</startTime>
+			<endTime>86340</endTime>
+			<creation_time>60</creation_time>
+			<targetSoc>0.396</targetSoc>
+			<soc>0.36</soc>
+		</battery>
+		<backgroundload>
+			<id>111</id>
+			<profile>2021-04-13-Sverre Iversen vei 31.csv</profile>
+		</backgroundload>
+	</chargingStation>
+</Neighborhood>

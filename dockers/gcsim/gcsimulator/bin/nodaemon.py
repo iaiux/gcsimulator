@@ -20,19 +20,19 @@
 #
 
 import time
-from agents import xmppAdaptor as sche, restAdaptor as sche1, setup as es, manager as sm, \
+from agents import restAdaptor as sche, xmppAdaptor as sche1, setup as es, manager as sm, \
     dispatcher as di
 import aiohttp_cors
 from utils.config import Configuration
 import logging
-import ptvsd
+#import ptvsd
 
-ptvsd.enable_attach(address=('0.0.0.0', 5678))
-ptvsd.wait_for_attach()
-logging.basicConfig(level=logging.INFO)
+#ptvsd.enable_attach(address=('0.0.0.0', 5678))
+#ptvsd.wait_for_attach()
+logging.basicConfig(level=logging.DEBUG)
 
 
-
+print('ciao')
 #####################################################################
 #  This Method configure all the API to be exposed to the scheduler #
 #  It depends on adotped protocol for the simulation                #
@@ -48,7 +48,7 @@ def adaptor():
     hostname = Configuration.parameters['adaptor_address']
     password = Configuration.parameters['xmpp_password']
     if protocol_version == "2.0":
-        logging.info("Starting Adaptor")
+        #logging.info("Starting Adaptor")
         adaptor = sche.Adaptor(basejid + "/" + jid, password)
         # scheduler.web.add_get("/gettime", scheduler.get_time, "message.html")
         # scheduler.web.add_post("/postanswer", scheduler.post_answer, "message2.html")
@@ -140,9 +140,8 @@ def setup_simulation():
     basejid = Configuration.parameters['userjid']
     simulation_dir = Configuration.parameters['current_sim_dir']
     password = Configuration.parameters['xmpp_password']
-    external = es.ExternalSourceAgent(basejid + "/externalSource", password, simulation_dir + "/xml/buildingNeighborhood.xml",
-                                          simulation_dir + "/xml/buildingLoad.xml")
-    logging.debug(simulation_dir + "/xml/buildingNeighborhood.xml")
+    external = es.ExternalSourceAgent(basejid + "/externalSource", password, simulation_dir + "/xml/neighborhood.xml",
+                                          simulation_dir + "/xml/loads.xml")
     external.simulation_setup()
     adaptor()
 
@@ -152,6 +151,7 @@ def setup_simulation():
 if __name__ == "__main__":
 
     Configuration.load()
+    print("test")
     logging.info("configuration loaded")
     di.MessageFactory.init_parameters()
     setup_simulation()
@@ -161,8 +161,8 @@ if __name__ == "__main__":
     setup_jid = Configuration.parameters['userjid'] + "/setupmodule"
     password =  Configuration.parameters['xmpp_password']
     start_disp()
-    setupmodule = sm.SetupModule(setup_jid, password)
-    setupmodule.start()
+    #setupmodule = sm.SetupModule(setup_jid, password)
+    #setupmodule.start()
 
 
     logging.info("waiting for termination")

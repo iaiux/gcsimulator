@@ -1,0 +1,19 @@
+---
+config:
+  adaptor_port: 10026
+  adaptor: adaptor
+  simulator: taskmanager
+  scheduler: actormanager
+  adaptor_address: parsec2.unicampania.it
+  workingdir: home/users/demo/bin
+  userjid: eurecat@parsec2.unicampania.it
+  simulation: P1D1
+  simulation_dir: /home/gc/Simulations
+  protocol: "1.0"
+  date: 01/01/21
+  xmpp_password: gceurecat01
+  webdir: /home/gcdemo/public_html/Simulations/eurecat
+  forcedwait: false
+  web_url: http://parsec2.unicampania.it/~gcdemo/Simulations/eurecat/
+  optimization_criteria: "null"
+...

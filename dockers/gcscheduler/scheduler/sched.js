@@ -53,6 +53,8 @@ function log(msg, msgid)
 	 var elems = messages[msgid].getElementsByTagName('body');
 	 var body = Strophe.getText(elems[0]);
 	 body = body.replace(/\s+/g, ' ');
+	 console.log(body);
+
 	if(body.startsWith("LOAD")){
 	   if(auto==0)
 	 	{   respond = "AST.html"
@@ -136,6 +138,15 @@ function log(msg, msgid)
 	   var capacity = parseInt(tokens[2]);
 	   var max_ch_pow_ac = parseFloat(tokens[3]);
 	   devices[ev_id] = {"capacity": capacity, "max_ch_pow_ac": max_ch_pow_ac};
+	}
+	else if(body.startsWith("SIMULATION ")){
+		console.log('scheduled');
+		response = "SCHEDULED";
+		var msg  = messages[msgid];
+		var from = msg.getAttribute('from');
+		var to = msg.getAttribute('to');
+		var reply = new Strophe.Builder("message",{to: from, from: to, type: 'chat'}).c("body").t(response);
+		connection.send(reply.tree());	
 	} 
 	else if(body.startsWith("EV "))
 	  if(auto!=0)
@@ -169,7 +180,7 @@ function log(msg, msgid)
 
     	  //jsonResponse["sim_id"]=jsonRequest.sim_id;
           jsonResponse["time"]=tokens[27];
-          jsonResponse["id"]=tokens[2];
+          jsonResponse["id"]=tokens[5].split(":")[0]+":"+tokens[1];
 	  form.append("response", JSON.stringify(jsonResponse));
 	  const fileBuffer = Buffer.from(csvstr, 'utf-8');
 	  form.append('csvfile',fileBuffer ,'test.csv');
@@ -194,8 +205,10 @@ function log(msg, msgid)
 
     		  }
 
-		}//msg!=null	
+		}//msg!=null
+
 		}
+		
 		 return true;
 	}
 

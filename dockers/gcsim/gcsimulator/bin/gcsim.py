@@ -20,12 +20,11 @@
 #
 
 import time
-from agents import xmppAdaptor as sche, restAdaptor as sche1, setup as es, manager as sm, \
+from agents import xmppAdaptor as sche1, restAdaptor as sche, setup as es, manager as sm, \
     dispatcher as di
 import aiohttp_cors
 from utils.config import Configuration
 import logging
-import ptvsd
 from daemons.prefab import run
 import sys
 import os
@@ -46,11 +45,10 @@ def adaptor():
 
     protocol_version = Configuration.parameters['protocol']
     simulation_dir = Configuration.parameters['simulation_dir']
-    logging.debug("simdir:" + simulation_dir)
+    print("simdir:" + simulation_dir)
     hostname = Configuration.parameters['adaptor_address']
     password = Configuration.parameters['xmpp_password']
     if protocol_version == "2.0":
-        logging.info("Starting Adaptor")
         adaptor = sche.Adaptor(basejid + "/" + jid, password)
         # scheduler.web.add_get("/gettime", scheduler.get_time, "message.html")
         # scheduler.web.add_post("/postanswer", scheduler.post_answer, "message2.html")
@@ -95,6 +93,7 @@ def adaptor():
         temp=adaptor.web.start(hostname=hostname, port=port)
         temp2=adaptor.web.is_started()
         sc2.result()
+        print(temp,temp2i,sc2)
     if protocol_version == "1.0":
         adaptor = sche1.Adaptor(basejid + "/" + jid, password)
         # scheduler.web.add_get("/gettime", scheduler.get_time, "message.html")
@@ -138,32 +137,50 @@ def start_disp():
 #  This Method is used to start externalSource Agent #
 ######################################################
 def setup_simulation():
-
+    
+    
     basejid = Configuration.parameters['userjid']
     simulation_dir = Configuration.parameters['current_sim_dir']
     password = Configuration.parameters['xmpp_password']
-    external = es.ExternalSourceAgent(basejid + "/externalSource", password, simulation_dir + "/xml/buildingNeighborhood.xml",
-                                          simulation_dir + "/xml/buildingLoad.xml")
-    logging.debug(simulation_dir + "/xml/buildingNeighborhood.xml")
+    external = es.ExternalSourceAgent(basejid + "/externalSource", password, simulation_dir + "/xml/neighborhood.xml",
+                                          simulation_dir + "/xml/loads.xml")
+    print(simulation_dir + "/xml/neighborhood.xml")
+
     external.simulation_setup()
     adaptor()
 
+def main():
+	print('beginning')
+	Configuration.load()
+	print("configuration loaded")
+	di.MessageFactory.init_parameters()
+	print('message factory Initialized')
+	setup_simulation()
+	print("simulation runtime built")
 
+	setup_jid = Configuration.parameters['userjid'] + "/setupmodule"
+	password = Configuration.parameters['xmpp_password']
+	start_disp()
+	setupmodule = sm.SetupModule(setup_jid, password)
+	setupmodule.start()
+	print('here')
 class GCDaemon(run.RunDaemon):
     @staticmethod
     def main():
+        print('beginning')
         Configuration.load()
-        logging.info("configuration loaded")
+        print("configuration loaded")
         di.MessageFactory.init_parameters()
+        print('message factory Initialized')
         setup_simulation()
-        logging.info("simulation runtime built")
+        print("simulation runtime built")
 
         setup_jid = Configuration.parameters['userjid'] + "/setupmodule"
         password = Configuration.parameters['xmpp_password']
         start_disp()
         setupmodule = sm.SetupModule(setup_jid, password)
         setupmodule.start()
-
+        print('here')
     @staticmethod
     def run():
             GCDaemon.main()
@@ -175,11 +192,22 @@ class GCDaemon(run.RunDaemon):
 
 
 
+def startBycode():
+    PIDFILE = '/home/gc/gcdaemon.pid'
+
+    daemon = GCDaemon(pidfile=PIDFILE)
+    try:
+        daemon.start()
+    except Exception as e:
+        print(e)
+        logging.error("start failed")
+
+
 if __name__ == "__main__":
 
-    PIDFILE = '/home/gc/simulator/gcdaemon.pid'
-    LOGFILE = '/home/gc/simulator/gcdaemon.log'
-    # logging.basicConfig(filename=LOGFILE, filemode='w', level=logging.INFO)
+    PIDFILE = '/home/gc/gcdaemon.pid'
+    LOGFILE = '/home/gc/gcdaemon.log'
+    '''logging.basicConfig(filename=LOGFILE, filemode='w', level=logging.INFO)
     daemon = GCDaemon(pidfile=PIDFILE)
     parser = argparse.ArgumentParser(description='gc simulator daemon')
     parser.add_argument('cmd', metavar='CMD', choices=['start', 'stop', 'restart', 'status'],
@@ -200,19 +228,28 @@ if __name__ == "__main__":
         else:
             try:
                 daemon.start()
-            except:
+            except Exception as e:
+                print(e)
                 logging.error("start failed")
 
     elif 'stop' ==  args.cmd:
         print("Stopping ...")
         pf = open(PIDFILE,'r')
-        pid = int(pf.read().strip())
-        logging.info(pid)
-        pf.close()
-        os.killpg(os.getpgid(pid), signal.SIGHUP)
-        os.killpg(os.getpgid(pid), signal.SIGKILL)
-        os.kill(pid,signal.SIGKILL)
-        #daemon.stop()
+        stringpid = pf.read().strip()
+        pid = int(stringpid)
+        try:
+            os.getpgid(pid)
+            logging.info(pid)
+            pf.close()
+            os.killpg(os.getpgid(pid), signal.SIGHUP)
+            os.killpg(os.getpgid(pid), signal.SIGKILL)
+            os.kill(pid,signal.SIGKILL)
+        except:
+            print('no process running')
+
+            
+
+            #daemon.stop()
 
     elif 'restart' == sys.argv[1]:
         print("Restarting ...")
@@ -231,4 +268,9 @@ if __name__ == "__main__":
         if pid:
             print('GCDaemon is running as pid %s' % pid)
         else:
-            print('GCDaemon is not running.')
+            print('GCDaemon is not running.')'''
+    print('ciao')
+    daemon = GCDaemon(pidfile=PIDFILE)
+    daemon.main()
+    #main()
+
