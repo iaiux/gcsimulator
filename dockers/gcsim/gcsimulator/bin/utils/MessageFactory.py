@@ -432,8 +432,7 @@ class MessageFactory:
                 device.device.max_ch_pow_ac) + ' " ,"max_discharge_power" : " ' + str(
                 device.device.max_dis_pow_ac) + ' " , "charging_point" : "[99]:[' + device.house + ']", "v2g" : " ' + str(
                 device.v2g) + ' " , "target_soc" : " ' + str(
-                device.target_soc) + ' " , "v2gminsoc" : " ' + str(device.v2gminsoc) + ' ", "lat" : " ' + str(
-                device.lat) + ' ", "long" : " ' + str(device.long) + ' " }}'
+                device.target_soc) + ' " , "v2gminsoc" : " ' + str(device.v2gminsoc) + ' " }}'
             mex.body = message
             mex.metadata = time
             return (mex)
@@ -473,7 +472,8 @@ class MessageFactory:
                 device.device.sb_ch) + ' " , "sb_dis" : " ' + str(
                 device.device.sb_dis) + ' " , "ch_eff" :  " ' + str(
                 device.device.ch_eff) + ' " , "dis_eff": " ' + str(
-                device.device.dis_eff) + ' " , "v2g" : " ' + str(device.v2g) + ' "}}'
+                device.device.dis_eff) + ' " , "v2g" : " ' + str(device.v2g) + ' ", "lat" : " ' + str(
+                device.lat) + ' ", "long" : " ' + str(device.long) + ' "}}'
             mex.body = message
             mex.metadata = time
             return mex

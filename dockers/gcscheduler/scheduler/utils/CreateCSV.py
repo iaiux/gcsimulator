@@ -15,6 +15,12 @@ def createCSVFile(CSlat, CSlong, EVlat, EVlong):
             elif (latC == None and longC == None and latE != None and longE != None):
                 writer.writerow([0, 0, 0, str(latE), str(longE)])
 
+def CreateValuesFile(N_cars,N_stations):
+    with open("./data/values2.csv","w+",newline='')as file:
+        writer=csv.writer(file)
+        writer.writerow(["NCARS:",N_cars])
+        writer.writerow(["NSTATIONS:", N_stations])
+
 
 if __name__ == '__main__':
     print("HELLO")

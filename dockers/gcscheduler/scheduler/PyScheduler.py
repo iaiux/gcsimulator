@@ -3,6 +3,8 @@ import requests
 import json
 import threading
 import utils.CreateCSV
+import utils.pareto
+import subprocess
 
 EVlat = []
 EVlong = []
@@ -11,20 +13,21 @@ CSlong = []
 dict_EV = {}
 
 
+
 def getLatLon(jsonRequest):
     switchsubject = jsonRequest["message"]["subject"]
-    if switchsubject == "EV":
+    if switchsubject == "CREATE_EV":
         print("arrivata un EV")
         lat = float(jsonRequest["message"]["lat"])
         long = float(jsonRequest["message"]["long"])
-        print("Latitude: ", lat, "Longitude: ", long)
+        # print("Latitude: ", lat, "Longitude: ", long)
         return lat, long, "EV"
     if switchsubject == "CREATE_ENERGY_GROUP" and jsonRequest["message"].get("lat") and jsonRequest["message"].get(
             "long"):
         print("arrivata un CS")
         lat = float(jsonRequest["message"]["lat"])
         long = float(jsonRequest["message"]["long"])
-        print("Latitude: ", lat, "Longitude: ", long)
+        # print("Latitude: ", lat, "Longitude: ", long)
         return lat, long, "CS"
     else:
         return None, None, None
@@ -33,7 +36,7 @@ def getLatLon(jsonRequest):
 def sendResponse(jsonRequest):
     jsonResponse = {}
     jsonResponse["sim_id"] = jsonRequest["message"]["id"]
-    jsonResponse["time"] = int(jsonRequest["time"]) + 10
+    jsonResponse["time"] = float(jsonRequest["time"]) + 10
     jsonResponse["id"] = jsonRequest["message"]["id"]
     switchsubject = jsonRequest["message"]["subject"]
     if switchsubject == "LOAD":
@@ -70,8 +73,7 @@ def sendResponse(jsonRequest):
     # r = requests.post("http://greencharge.simulator:10021/postanswer", files={'file': open('test.csv','r')})
     # print("Req: ", r.text)
 
-
-def getRequest():
+def getRequest(count):
     # r =requests.get("http://parsec2.unicampania.it:10021/getmessage")
     # r =requests.get("http://127.0.0.1:10021/getmessage")
     r = requests.get("http://greencharge.simulator:10021/getmessage")
@@ -85,7 +87,7 @@ def getRequest():
     # mi va in errore perché non è un dict
     if subject == "CREATE_EV":
         dict_EV[message['id']] = message
-    if subject == "LOAD" or subject == "HC" or subject == "EV" or subject == "CREATE_ENERGY_GROUP":
+    if subject == "LOAD" or subject == "HC" or subject == "CREATE_EV" or subject == "CREATE_ENERGY_GROUP":
         lat, long, type = getLatLon(json_object)
         if type == "EV":
             EVlat.append(lat)
@@ -94,14 +96,19 @@ def getRequest():
             CSlat.append(lat)
             CSlong.append(long)
         sendResponse(json_object)
-    if subject=="SIMULATION_END":
-        utils.CreateCSV.createCSVFile(CSlat,CSlong,EVlat,EVlong)
-    print(EVlat)
-    print(EVlong)
-    print(CSlat)
-    print(CSlong)
-    threading.Timer(2.0, getRequest).start()
+    if subject == "SIMULATION_END" and count == 0:
+        utils.CreateCSV.createCSVFile(CSlat, CSlong, EVlat, EVlong)
+        utils.CreateCSV.CreateValuesFile(len(EVlat), len(CSlat))
+        print("EVLats: ", EVlat)
+        print("EVLongs: ", EVlong)
+        print("CSlat: ", CSlat)
+        print("CSLongs: ", CSlong)
+        count += 1
+        subprocess.call("python3 utils/multi_obiettivo.py", shell=True)
+        #exec(open("utils/multi_obiettivo.py").read())
+        utils.pareto.draw_pareto("out_pareto.csv","pareto.png")
+    threading.Timer(2.0, getRequest,args=(count,)).start()
 
 
 if __name__ == '__main__':
-    getRequest()
+    getRequest(0)
