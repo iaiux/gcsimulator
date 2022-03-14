@@ -253,10 +253,6 @@ if __name__ == "__main__":
     stations_closest = zeros(n_stations)  # crea due vettori di n_stations elementi
     stations_var = zeros(n_stations)
 
-    for i in range(0, n_cars):
-        stations_closest[best_ind1[i]] += 1  # carica questi due vettori inserendo quante auto in quale stazione
-        stations_var[best_ind2[i]] += 1
-
     f = open('data/out_objectives.csv', 'w')
     print(best_ind1.fitness.values[0], best_ind1.fitness.values[1], np.var(stations_closest), file=f)
     print(best_ind2.fitness.values[0], best_ind2.fitness.values[1], np.var(stations_var), file=f)
@@ -266,4 +262,15 @@ if __name__ == "__main__":
     f = open("data/out_inds.csv", "w")
     print(best_ind1, ",", best_ind1.fitness.values[0], ",", best_ind1.fitness.values[1], file=f)
     print(best_ind2, ",", best_ind2.fitness.values[0], ",", best_ind2.fitness.values[1], file=f)
+    f.close()
+    for i in range(0, n_cars):
+        stations_closest[best_ind1[i]] += 1  # carica questi due vettori inserendo quante auto in quale stazione
+        stations_var[best_ind2[i]] += 1
+    f = open('data/out_car2stations.csv', 'w')
+    for i in range(0, n_stations):
+        print (stations_closest[i],",",stations_var[i],file=f) #nel file inserisce per ogni stazione
+                                                                #scelti i due individui migliori
+                                                                #quante auto ci sono. In ogni riga
+                                                                #scrive per la stazione 0 per il primo individuo
+                                                                #e per il secondo individuo
     f.close()

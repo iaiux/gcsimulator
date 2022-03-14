@@ -4,6 +4,7 @@ import json
 import threading
 import utils.CreateCSV
 import utils.pareto
+import utils.scatter
 import subprocess
 
 EVlat = []
@@ -107,6 +108,7 @@ def getRequest(count):
         subprocess.call("python3 utils/multi_obiettivo.py", shell=True)
         #exec(open("utils/multi_obiettivo.py").read())
         utils.pareto.draw_pareto("out_pareto.csv","pareto.png")
+        utils.scatter.main(len(CSlat))
     threading.Timer(2.0, getRequest,args=(count,)).start()
 
 
