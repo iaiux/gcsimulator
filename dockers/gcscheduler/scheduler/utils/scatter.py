@@ -58,7 +58,7 @@ def scatter_random(file1,file2,prob):
 
 
 
-def draw_scatter(filename, n_stations,figname,distvar):
+def draw_scatter(filename, n_stations,figname,distvar,case):
 
 	csv = np.genfromtxt(filename, delimiter=",")
 	minx = csv[:,0].min()
@@ -96,8 +96,8 @@ def draw_scatter(filename, n_stations,figname,distvar):
 	cb1=plt.colorbar(strm)
 	cb1.set_label('covered distance')
 
-	car2stations = np.genfromtxt("./data/out_car2stations.csv", delimiter=",")
-	stations = np.genfromtxt("./data/ind_pos2.csv", delimiter=",")
+	car2stations = np.genfromtxt("./data/out_car2stations_"+case+".csv", delimiter=",")
+	stations = np.genfromtxt("./data/ind_distance_"+case+".csv", delimiter=",")
 	sc2 = ax0.scatter(stations[:n_stations, 0], stations[:n_stations, 1], s=car2stations[:n_stations,distvar] * 50, c=car2stations[:n_stations,distvar],
 					  alpha=0.5)
 	cb2=plt.colorbar(sc2)
@@ -118,19 +118,19 @@ def draw_scatter(filename, n_stations,figname,distvar):
 
 
 
-def main(n_stations):
+def main(n_stations,case):
 
 
-	distance1,ec2st1 = draw_scatter("./data/out_closest_path.csv",n_stations,"./figures/closest_ga.png",0)
-	distance2, ec2st2 =  draw_scatter("./data/out_variance_path.csv",n_stations,"./figures/variance_ga.png",1)
-	distance3, ec2st3 = utils.scatter_close.main()
-	distance4,ec2st4 = scatter_random("./data/out_closest_path.csv", "./data/out_variance_path.csv", 0.6)
+	distance1,ec2st1 = draw_scatter("./data/out_closest_path_"+case+".csv",n_stations,"./figures/closest_ga_"+case+".png",0,case)
+	distance2, ec2st2 =  draw_scatter("./data/out_variance_path_"+case+".csv",n_stations,"./figures/variance_ga_"+case+".png",1,case)
+	distance3, ec2st3 = utils.scatter_close.main(case)
+	distance4,ec2st4 = scatter_random("./data/out_closest_path_"+case+".csv", "./data/out_variance_path_"+case+".csv", 0.6)
 	print (np.var(ec2st4),",vvvv,",np.sum(distance4))
 
 	min =0;
 	max =30
 
-	f = open("./data/out_propabilityst.csv","w")
+	f = open("./data/out_propabilityst_"+case+".csv","w")
 	for i in range(0,max):
 		prob1 = np.zeros(max)
 		for j in range(0,len(ec2st1)):
@@ -168,6 +168,6 @@ def main(n_stations):
 	ax1.set_ylabel('#of ecars per station')
 	ax0.set_xlabel('closest,distance, variance, Choice')
 	ax1.set_xlabel('closest,distance, variance, Choice')
-	fig0.savefig("./figures/boxplots.png")
+	fig0.savefig("./figures/boxplots_"+case+".png")
 
 

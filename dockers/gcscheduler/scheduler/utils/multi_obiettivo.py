@@ -27,18 +27,23 @@ from deap import creator
 from deap import tools
 from geopy.distance import geodesic
 
-filename = "values2.csv"
-csv = np.genfromtxt("data/" + filename, delimiter=",")
-print("Avvio algoritmo con: ", filename)
+n_sc,values,ind_dist,out=sys.argv
+
+if len(sys.argv)<4:
+    print("Mancano dei parametri")
+    sys.exit()
+#filename = "values2.csv"
+csv = np.genfromtxt("data/" + values, delimiter=",")
+print("Avvio algoritmo con: ", values)
 n_cars = int(csv[0, 1])  # legge il numero di EV
 n_stations = int(csv[1, 1])  # legge il numero di CS
 
 m_dist = zeros((n_cars, n_stations))  # crea la matrice delle distanze
 average = n_cars / n_stations  # indica la media di macchine per stazione
-
-filename = "ind_pos2.csv"
-csv = np.genfromtxt("data/" + filename, delimiter=",")
-print("Avvio algoritmo con: ", filename)
+print(n_cars, n_stations)
+#filename = "ind_pos2.csv"
+csv = np.genfromtxt("data/" + ind_dist, delimiter=",")
+print("Avvio algoritmo con: ", ind_dist)
 stations = np.zeros(n_stations)
 # legge le posizioni di EV
 lat_ecars = csv[:n_cars, 3]
@@ -127,9 +132,13 @@ leggere e inizializzare tutte le info di macchine e stazioni
 def main(seed=None):
 
     random.seed(seed)
+    if out=="simulator":
+        NGEN = 30
+        MU = 20
+    elif out=="opendata":
+        NGEN = 1000
+        MU = 100
 
-    NGEN = 1000
-    MU = 100
     CXPB = 0.9
 
     stats = tools.Statistics(lambda ind: ind.fitness.values)  # crea valori utili per le statistiche
@@ -160,7 +169,7 @@ def main(seed=None):
     logbook.record(gen=0, evals=len(invalid_ind),
                    **record)  # serve per creare un log di tutti i parametri piu importanti della generazione 0
 
-    f = open('data/out_evolution.csv', 'w')  # apro file in scrittura per salvare dati
+    f = open('data/out_evolution_'+out+'.csv', 'w')  # apro file in scrittura per salvare dati
     # print >>f,logbook.stream
 
     # Begin the generational process
@@ -171,7 +180,6 @@ def main(seed=None):
                                            len(pop))  # effettua una selezione di tutti gli individui http://gpbib.cs.ucl.ac.uk/gecco2005/docs/p257.pdf
         offspring = [toolbox.clone(ind) for ind in
                      offspring]  # clona questi individui quindi fa una riproduzione (non cambia offspring)
-
         for ind1, ind2 in zip(offspring[::2], offspring[1::2]):  # divide gli individui in due liste separate
             if random.random() <= CXPB:  # se il valore di un numero casuale è minore di 0,9 probabilità
                 # assegnata al crossover, effettua il crossover tra gli individui
@@ -225,25 +233,25 @@ if __name__ == "__main__":
     print("Ind1:", best_ind1, "Fit1:", best_ind1.fitness.values[0], "Fit2: ", best_ind1.fitness.values[1])
     print("Ind2:", best_ind2, "Fit2:", best_ind2.fitness.values[0], "Fit2: ", best_ind2.fitness.values[1])
 
-    f = open('data/out_pareto.csv', 'w')  # stampa nel file out_pareto i valori delle fitness di tutti gli individui
+    f = open('data/out_pareto_'+out+'.csv', 'w')  # stampa nel file out_pareto i valori delle fitness di tutti gli individui
     # della popolazione finale che sono quelli che ottimizzano
-    print("Scrivo gli individui che ottimizzano in data/out_pareto.csv")
+    print("Scrivo gli individui che ottimizzano in data/out_pareto_"+out+".csv")
     for ind in pop:
         print(ind.fitness.values[0], ",", ind.fitness.values[1], file=f)
     f.close()
 
-    print("Scrivo ogni EV a che CS viene associata se scelgo il percorso con meno km in data/out_closest_path.csv")
+    print("Scrivo ogni EV a che CS viene associata se scelgo il percorso con meno km in data/out_closest_path_"+out+".csv")
     # print("Stazione preferita di ogni auto nel caso a minor distanza %s, %s" % (best_ind1, best_ind1.fitness.values))
-    f = open('data/out_closest_path.csv',
+    f = open('data/out_closest_path_'+out+'.csv',
              'w')  # stampa nel file out_closest_path la posizione dell'auto e la posizione della stazione
     # con minore distanza per ogni CS
     for i in range(0, len(best_ind1)):
         print(lat_ecars[i], ",", long_ecars[i], ",", lat_stations[best_ind1[i]], ",", long_stations[best_ind1[i]],
               file=f)
     f.close()
-    print("Scrivo ogni EV a che CS viene associata se scelgo varianza bassa in data/out_variance_path.csv")
+    print("Scrivo ogni EV a che CS viene associata se scelgo varianza bassa in data/out_variance_path_"+out+".csv")
     # print("Stazione preferita da ogni auto nel caso a minor varianza %s, %s" % (best_ind2, best_ind2.fitness.values))
-    f = open('data/out_variance_path.csv', 'w')  # stampa nel file out_variance_path la posizione dell'auto e
+    f = open('data/out_variance_path_'+out+'.csv', 'w')  # stampa nel file out_variance_path la posizione dell'auto e
     # della stazione con varianza (tempo di attesa medio più basso possibile)
     for i in range(0, len(best_ind2)):
         print(lat_ecars[i], ",", long_ecars[i], ",", lat_stations[best_ind2[i]], ",", long_stations[best_ind2[i]],
@@ -253,20 +261,20 @@ if __name__ == "__main__":
     stations_closest = zeros(n_stations)  # crea due vettori di n_stations elementi
     stations_var = zeros(n_stations)
 
-    f = open('data/out_objectives.csv', 'w')
-    print(best_ind1.fitness.values[0], best_ind1.fitness.values[1], np.var(stations_closest), file=f)
-    print(best_ind2.fitness.values[0], best_ind2.fitness.values[1], np.var(stations_var), file=f)
+    f = open('data/out_objectives_'+out+'.csv', 'w')
+    print(best_ind1.fitness.values[0], best_ind1.fitness.values[1], file=f)
+    print(best_ind2.fitness.values[0], best_ind2.fitness.values[1],file=f)
     f.close()
 
-    print("Salvo in data/out_inds.csv il file con due individui ottimi")
-    f = open("data/out_inds.csv", "w")
+    print("Salvo in data/out_inds_"+out+".csv il file con due individui ottimi")
+    f = open("data/out_inds_"+out+".csv", "w")
     print(best_ind1, ",", best_ind1.fitness.values[0], ",", best_ind1.fitness.values[1], file=f)
     print(best_ind2, ",", best_ind2.fitness.values[0], ",", best_ind2.fitness.values[1], file=f)
     f.close()
     for i in range(0, n_cars):
         stations_closest[best_ind1[i]] += 1  # carica questi due vettori inserendo quante auto in quale stazione
         stations_var[best_ind2[i]] += 1
-    f = open('data/out_car2stations.csv', 'w')
+    f = open('data/out_car2stations_'+out+'.csv', 'w')
     for i in range(0, n_stations):
         print (stations_closest[i],",",stations_var[i],file=f) #nel file inserisce per ogni stazione
                                                                 #scelti i due individui migliori

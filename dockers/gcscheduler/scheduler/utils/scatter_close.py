@@ -18,8 +18,8 @@ from geopy.distance import geodesic
 
 #This file containes in first 2 column position of station (76 rows).
 #In 3,4 colums initial car position (300 rows).
-def main():
-	csv = np.genfromtxt("./data/out_closest_path.csv", delimiter=",")
+def main(case):
+	csv = np.genfromtxt("./data/out_closest_path_"+case+".csv", delimiter=",")
 
 
 	n_cars =len(csv[:,2])
@@ -126,7 +126,7 @@ def main():
 
 	print ("total distance:",total_distance,",",np.var(D),",",np.average(D),",",np.min(D),",",np.max(D))
 	print ("e-cars:,",np.var(stations),",",np.average(stations),",",np.min(stations),",",np.max(stations))
-	fig0.savefig("./figures/closest_opt.png")
+	fig0.savefig("./figures/closest_opt_"+case+".png")
 
 	return D,stations
 

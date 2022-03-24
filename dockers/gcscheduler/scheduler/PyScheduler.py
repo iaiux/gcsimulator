@@ -1,8 +1,10 @@
 # coding=utf-8
+import numpy as np
 import requests
 import json
 import threading
 import utils.CreateCSV
+import utils.CreateCSandEV
 import utils.pareto
 import utils.scatter
 import subprocess
@@ -12,7 +14,6 @@ EVlong = []
 CSlat = []
 CSlong = []
 dict_EV = {}
-
 
 
 def getLatLon(jsonRequest):
@@ -74,6 +75,7 @@ def sendResponse(jsonRequest):
     # r = requests.post("http://greencharge.simulator:10021/postanswer", files={'file': open('test.csv','r')})
     # print("Req: ", r.text)
 
+
 def getRequest(count):
     # r =requests.get("http://parsec2.unicampania.it:10021/getmessage")
     # r =requests.get("http://127.0.0.1:10021/getmessage")
@@ -98,18 +100,26 @@ def getRequest(count):
             CSlong.append(long)
         sendResponse(json_object)
     if subject == "SIMULATION_END" and count == 0:
-        utils.CreateCSV.createCSVFile(CSlat, CSlong, EVlat, EVlong)
-        utils.CreateCSV.CreateValuesFile(len(EVlat), len(CSlat))
+        ind_dist = utils.CreateCSV.createCSVFile(CSlat, CSlong, EVlat, EVlong)
+        values = utils.CreateCSV.CreateValuesFile(len(EVlat), len(CSlat))
         print("EVLats: ", EVlat)
         print("EVLongs: ", EVlong)
         print("CSlat: ", CSlat)
         print("CSLongs: ", CSlong)
         count += 1
-        subprocess.call("python3 utils/multi_obiettivo.py", shell=True)
-        #exec(open("utils/multi_obiettivo.py").read())
-        utils.pareto.draw_pareto("out_pareto.csv","pareto.png")
-        utils.scatter.main(len(CSlat))
-    threading.Timer(2.0, getRequest,args=(count,)).start()
+        print("Avvio con simulator data " + values + " " + ind_dist)
+        subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
+        print("Avvio con opendata")
+        utils.CreateCSandEV.main()
+        subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",
+                        shell=True)
+        utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
+        utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")
+        utils.scatter.main(len(CSlat), "simulator")
+        csv = np.genfromtxt("data/values_opendata.csv", delimiter=",")
+        n_stations = int(csv[1, 1])  # legge il numero di CS
+        utils.scatter.main(n_stations, "opendata")
+    threading.Timer(2.0, getRequest, args=(count,)).start()
 
 
 if __name__ == '__main__':

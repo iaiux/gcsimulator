@@ -5,7 +5,8 @@ import os
 
 def createCSVFile(CSlat, CSlong, EVlat, EVlong):
     #print(CSlat, CSlong, EVlat, EVlong)
-    with open("./data/ind_pos2.csv", 'w+', newline='') as file:
+    filename="ind_distance_simulator.csv"
+    with open("./data/"+filename, 'w+', newline='') as file:
         writer = csv.writer(file)
         for latC, longC, latE, longE in itertools.zip_longest(CSlat, CSlong, EVlat, EVlong):
             if (latC != None and longC != None and latE != None and longE != None):
@@ -14,12 +15,15 @@ def createCSVFile(CSlat, CSlong, EVlat, EVlong):
                 writer.writerow([str(latC), str(longC), 0])
             elif (latC == None and longC == None and latE != None and longE != None):
                 writer.writerow([0, 0, 0, str(latE), str(longE)])
+    return filename
 
 def CreateValuesFile(N_cars,N_stations):
-    with open("./data/values2.csv","w+",newline='')as file:
+    filename="values_simulator.csv"
+    with open("./data/"+filename,"w+",newline='')as file:
         writer=csv.writer(file)
         writer.writerow(["NCARS:",N_cars])
         writer.writerow(["NSTATIONS:", N_stations])
+    return filename
 
 
 if __name__ == '__main__':
