@@ -1,4 +1,3 @@
-from geopy.distance import geodesic
 import random
 import csv
 
@@ -29,7 +28,7 @@ def main():
 			for riga in reader:
 				if (N_cars<350):
 					N_cars=N_cars+1
-					print(riga[3],riga[4])
+					#print(riga[3],riga[4])
 					latEV=float(riga[3])+round(random.uniform(-0.20, 0.20), 9)
 					longEV=float(riga[4])+round(random.uniform(-0.20, 0.20), 9)
 					writer.writerow([0,0,0, str(latEV), str(longEV)])
