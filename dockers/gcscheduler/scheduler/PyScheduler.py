@@ -9,6 +9,7 @@ import utils.CreatePmax
 import utils.pareto
 import utils.scatter
 import subprocess
+import utils.ReadInterpolatePVProfile
 
 EVlat = []
 EVlong = []
@@ -80,6 +81,7 @@ def getRequest(count):
         utils.CreateCSandEV.main()
         utils.CreatePmax.PmaxCreator(EVmaxpow,"EVPmax.csv")
         utils.CreatePmax.PmaxCreator(BVmaxpow,"BVPmax.csv")
+        timestamps,date,PVenergy=utils.ReadInterpolatePVProfile.main(profiles[0])
         #subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
         #utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
         #utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")

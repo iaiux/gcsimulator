@@ -28,7 +28,10 @@ def ReadProfile(filepath):
             x.append(riga[0])
             y.append(riga[1])
     #print(x,y)
-    return x,y
+    filename=substring_after(filepath,"2021")
+    filename="2021"+filename
+    filename=filename[0:10]+"_PVenergy.csv"
+    return filename,x,y
 
 def interp(x,y,filepath):
     dtime=[]
@@ -53,11 +56,16 @@ def interp(x,y,filepath):
     #plt.show()
     return timestamps,dtime,ynew
 
+def WriteCSV(timestamps,date,PVenergy,filename):
+    with open("../csv/"+filename, 'w+', newline='') as outputcsv:
+        writer = csv.writer(outputcsv)
+        for x,y,z in zip(timestamps,date,PVenergy):
+            writer.writerow([x,y,z/1000])
+
 def main(filepath):
-    x,y=ReadProfile(filepath)
+    filename,x,y=ReadProfile(filepath)
     timestamps,date,PVenergy=interp(x,y,filepath)
-    return timestamps,date,PVenergy
+    WriteCSV(timestamps,date,PVenergy,filename)
 
 if __name__ == '__main__':
-    timestamps,date,PVenergy=main("http://localhost/demo/12_12_15_145/2021-09-26-b734beb8-cd3a-4e19-a0b7-e9ef1d0e4275.csv")
-
+    main("http://localhost/demo/12_12_15_145/2021-09-26-b734beb8-cd3a-4e19-a0b7-e9ef1d0e4275.csv")
