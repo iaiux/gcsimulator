@@ -375,6 +375,23 @@
 			<cheff>null</cheff>
 			<dis_eff>null</dis_eff>
 		</ecar>
+		<ecar>
+			<name>dev_303</name>
+			<id>303</id>
+			<type>Prosumer</type>
+			<model>736D20F1-D137-43BC-B7C3-631DE8254A08</model>
+			<capacity>52</capacity>
+			<maxchpowac>22</maxchpowac>
+			<maxchpowcc>46</maxchpowcc>
+			<maxdispowac>null</maxdispowac>
+			<maxdispowcc>null</maxdispowcc>
+			<maxallen>null</maxallen>
+			<minallen>null</minallen>
+			<sbch>null</sbch>
+			<sbdis>null</sbdis>
+			<cheff>null</cheff>
+			<dis_eff>null</dis_eff>
+		</ecar>
 	</fleet>
 	<chargingStation id="18" peakLoad="22" code="P2D1L3" CPinfo="4">
 		<lat>40.9615476411</lat>

@@ -10,6 +10,7 @@ import utils.pareto
 import utils.scatter
 import subprocess
 import utils.ReadInterpolatePVProfile
+import utils.CreateBVandEVenergy
 
 EVlat = []
 EVlong = []
@@ -19,7 +20,16 @@ dict_EV = {}
 EVmaxpow=[]
 BVmaxpow=[]
 PVid=[]
+EVid1=[]
+EVid2=[]
 profiles=[]
+SoCsEV=[]
+SoCsBV=[]
+CapsEV=[]
+CapsBV=[]
+BVid=[]
+
+
 def getLatLon(jsonRequest):
     switchsubject = jsonRequest["message"]["subject"]
     if switchsubject == "CREATE_EV":
@@ -53,20 +63,27 @@ def getRequest(count):
     if subject == "CREATE_EV":
         dict_EV[message['id']] = message
         EVmaxpow.append(float(message["max_ch_pow_ac"]))
+        CapsEV.append(float(message["capacity"]))
+        EVid1.append(message['id'])
     if subject== "CREATE_BATTERY":
         BVmaxpow.append(float(message["max_ch_pow_ac"]))
+        CapsBV.append(float(message["capacity"]))
+        BVid.append(message["id"])
+        SoCsBV.append(float(message["soc_at_arrival"]))
     if subject=="PREDICTION_UPDATE" and message["id"] not in PVid:
         PVid.append(message["id"])
         profiles.append(message["profile"])
     if subject == "LOAD" or subject == "HC" or subject == "CREATE_EV" or subject == "CREATE_ENERGY_GROUP":
         lat, long, type = getLatLon(json_object)
-
         if type == "EV":
             EVlat.append(lat)
             EVlong.append(long)
         elif type == "CS":
             CSlat.append(lat)
             CSlong.append(long)
+    if subject=="EV" and message["id"] not in EVid2:
+        EVid2.append(message["id"])
+        SoCsEV.append(float(message["soc_at_arrival"]))
     if subject == "SIMULATION_END" and count == 0:
         ind_dist = utils.CreateCSV.createCSVFile(CSlat, CSlong, EVlat, EVlong)
         values = utils.CreateCSV.CreateValuesFile(len(EVlat), len(CSlat))
@@ -79,9 +96,11 @@ def getRequest(count):
         subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
         print("Avvio con opendata")
         utils.CreateCSandEV.main()
-        utils.CreatePmax.PmaxCreator(EVmaxpow,"EVPmax.csv")
-        utils.CreatePmax.PmaxCreator(BVmaxpow,"BVPmax.csv")
-        timestamps,date,PVenergy=utils.ReadInterpolatePVProfile.main(profiles[0])
+        #utils.CreatePmax.PmaxCreator(EVmaxpow,"EVPmax.csv")
+        #utils.CreatePmax.PmaxCreator(BVmaxpow,"BVPmax.csv")
+        #utils.CreateBVandEVenergy.SoCCreator(CapsEV,EVid1,SoCsEV,EVid2,"EVenergy.csv")
+        #utils.CreateBVandEVenergy.BVeneryCreator(BVid,CapsBV,SoCsBV,"BVenergy.csv")
+        #utils.ReadInterpolatePVProfile.main(profiles[0])
         #subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
         #utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
         #utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")
