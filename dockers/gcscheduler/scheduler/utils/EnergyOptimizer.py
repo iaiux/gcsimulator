@@ -21,14 +21,24 @@ def function(x):
     y=x[N*Mev+1:]
     x=x[:N*Mev]
     somma=0
-    production=0
+    for i in range(0,N):
+        temp=0
+        for j in range (0,Mev):
+            temp=temp+ deltat*(x[i+j]*PmaxEV[j])
+        for j in range (0,Mbv):
+            temp=temp+ (y[i+j]*PmaxBV[j])
+        temp = temp-EPV[i]
+        somma =somma+abs(temp)
+    '''
     for i in range(0,N):
         for j in range (0,Mbv):
             #somma=somma+(abs(deltat*(x[i+j]*PmaxEV[j])+(y[i+j]*PmaxBV[j])-EPV[i]))
             somma=somma+ (deltat*(x[i+j]*PmaxEV[j]+y[i+j]*PmaxBV[j]))
         production=sum(EPV)
     print(abs(somma-production))
-    return abs(somma-production)
+    '''
+    print(somma)
+    return somma
 
 def ReadEnergyPV(PVfilename):
     with open("../csv/"+PVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
@@ -42,22 +52,22 @@ def ReadPmax(EVfilename,BVfilename):
     with open("../csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
-            PmaxEV.append(float(riga[0]))
+            PmaxEV.append(float(riga[5]))
     with open("../csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
-            PmaxBV.append(float(riga[0]))
+            PmaxBV.append(float(riga[5]))
 
-def ReadEnergyEV(EVenfilename):
-    with open("../csv/"+EVenfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+def ReadEnergyEV(EVfilename):
+    with open("../csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             CapsEV.append(float(riga[1]))
             EnInitEV.append(float(riga[3]))
             EVdemand.append(float(riga[4]))
     #print(CapsEV,EnInitEV,EVdemand)
-def ReadEnergyBV(BVenfilename):
-    with open("../csv/"+BVenfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+def ReadEnergyBV(BVfilename):
+    with open("../csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             CapsBV.append(float(riga[1]))
@@ -145,13 +155,14 @@ def consBVaccumulate2(x):
         BVCap=BVCap+ CapsBV[j]
     return -cons-BVStart+BVCap
 
-def main(EVPmaxfilename,BVpmaxfilename,PVfilename,EVenfilename,BVenfilename):
+def main(PVfilename,EVfilename,BVfilename):
     ReadEnergyPV(PVfilename)
-    ReadPmax(EVPmaxfilename,BVpmaxfilename)
-    AdjustLen()
-    ReadEnergyEV(EVenfilename)
-    ReadEnergyBV(BVenfilename)
+    ReadPmax(EVfilename,BVfilename)
+    #AdjustLen()
+    ReadEnergyEV(EVfilename)
+    ReadEnergyBV(BVfilename)
     N=len(ts)-1
+    deltat=float((float(ts[1])-float(ts[0]))/3600)
     Mev=len(PmaxEV)
     Mbv=len(PmaxBV)
     xij=[]
@@ -164,11 +175,11 @@ def main(EVPmaxfilename,BVpmaxfilename,PVfilename,EVenfilename,BVenfilename):
     cons = ({'type': 'ineq','fun' : consCapEV},
             {'type': 'ineq','fun' : consEVdemand},
             {'type': 'ineq','fun' : consBVaccumulate},
-            {'type': 'ineq','fun' : consBVaccumulate2},)
-    res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons, options={'maxiter': 1000, 'disp': True,})
+            {'type': 'ineq','fun' : consBVaccumulate2})
+    res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons, options={'ftol':0.1 ,'disp': True,'maxiter': 50})
     print(res.x)
     for i in res.x:
        print(i,end=' ')
 
 if __name__ == '__main__':
-    main("EVPmax.csv","BVPmax.csv","2021-09-26_PVenergy.csv","EVenergy.csv","BVenergy.csv")
+    main("2021-09-25_PVenergy.csv","EVenergyandPmax.csv","BVenergyandPmax.csv")

@@ -10,7 +10,8 @@ import utils.pareto
 import utils.scatter
 import subprocess
 import utils.ReadInterpolatePVProfile
-import utils.CreateBVandEVenergy
+import utils.CreateBVandEVenergyandPmax
+import utils.EnergyOptimizer
 
 EVlat = []
 EVlong = []
@@ -96,18 +97,17 @@ def getRequest(count):
         subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
         print("Avvio con opendata")
         utils.CreateCSandEV.main()
-        #utils.CreatePmax.PmaxCreator(EVmaxpow,"EVPmax.csv")
-        #utils.CreatePmax.PmaxCreator(BVmaxpow,"BVPmax.csv")
-        #utils.CreateBVandEVenergy.SoCCreator(CapsEV,EVid1,SoCsEV,EVid2,"EVenergy.csv")
-        #utils.CreateBVandEVenergy.BVeneryCreator(BVid,CapsBV,SoCsBV,"BVenergy.csv")
-        #utils.ReadInterpolatePVProfile.main(profiles[0])
-        #subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
-        #utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
-        #utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")
-        #utils.scatter.main(len(CSlat), "simulator")
-        #csv = np.genfromtxt("data/values_opendata.csv", delimiter=",")
-        #n_stations = int(csv[1, 1])  # legge il numero di CS
-        #utils.scatter.main(n_stations, "opendata")
+        utils.CreateBVandEVenergyandPmax.SoCCapsPmaxEVCreator(CapsEV,EVid1,SoCsEV,EVid2,EVmaxpow,"EVenergyandPmax.csv")
+        utils.CreateBVandEVenergyandPmax.BVeneryPmaxCreator(BVid,CapsBV,SoCsBV,BVmaxpow,"BVenergyandPmax.csv")
+        PVfilename=utils.ReadInterpolatePVProfile.main(profiles[0])
+        subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
+        utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
+        utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")
+        utils.scatter.main(len(CSlat), "simulator")
+        csv = np.genfromtxt("data/values_opendata.csv", delimiter=",")
+        n_stations = int(csv[1, 1])  # legge il numero di CS
+        utils.scatter.main(n_stations, "opendata")
+        utils.EnergyOptimizer.main(PVfilename,"EVenergyandPmax.csv","BVenergyandPmax.csv")
     threading.Timer(2.0, getRequest, args=(count,)).start()
 
 
