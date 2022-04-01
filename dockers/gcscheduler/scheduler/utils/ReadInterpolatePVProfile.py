@@ -53,7 +53,7 @@ def interp(x,y,filepath):
     xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
     ax.xaxis.set_major_formatter(xfmt)
     plt.plot(dtime,ynew)
-    #plt.show()
+    plt.show()
     return timestamps,dtime,ynew
 
 def WriteCSV(timestamps,date,PVenergy,filename):

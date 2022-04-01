@@ -1,6 +1,10 @@
 import csv
+
+from matplotlib import pyplot as plt
 from scipy.optimize import minimize
 import numpy as np
+import random
+import PlotGraph
 ts=[]
 EPV=[]
 PmaxEV=[]
@@ -29,16 +33,26 @@ def function(x):
             temp=temp+ (y[i+j]*PmaxBV[j])
         temp = temp-EPV[i]
         somma =somma+abs(temp)
-    '''
-    for i in range(0,N):
-        for j in range (0,Mbv):
-            #somma=somma+(abs(deltat*(x[i+j]*PmaxEV[j])+(y[i+j]*PmaxBV[j])-EPV[i]))
-            somma=somma+ (deltat*(x[i+j]*PmaxEV[j]+y[i+j]*PmaxBV[j]))
-        production=sum(EPV)
-    print(abs(somma-production))
-    '''
     print(somma)
     return somma
+
+def CalculateConsumption(x,y):
+    deltat=float((float(ts[1])-float(ts[0]))/3600)
+    Mev=len(PmaxEV)
+    Mbv=len(PmaxBV)
+    N=len(ts)-1
+    Consumption=[]
+    for i in range(0,len(ts)):
+        temp=0
+        for j in range (0,Mev):
+            temp=temp+ deltat*(x[i+j]*PmaxEV[j])
+        for j in range (0,Mbv):
+            temp=temp+ deltat*(y[i+j]*PmaxBV[j])
+        Consumption.append(temp)
+
+    return Consumption
+
+
 
 def ReadEnergyPV(PVfilename):
     with open("../csv/"+PVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
@@ -74,18 +88,6 @@ def ReadEnergyBV(BVfilename):
             EnInitBV.append(float(riga[3]))
             BVdemand.append(float(riga[4]))
 
-def AdjustLen():
-    while(len(PmaxEV)>len(PmaxBV)):
-        PmaxBV.append(0)
-        CapsBV.append(0)
-        EnInitBV.append(0)
-        BVdemand.append(0)
-
-    while(len(PmaxBV)>len(PmaxEV)):
-        PmaxEV.append(0)
-        EnInitEV.append(0)
-        EVdemand.append(0)
-        CapsEV.append(0)
 
 '''L’energia assorbita dalle auto  sommata all’energia iniziale 
 non può superare la  capacità della batteria'''
@@ -97,7 +99,7 @@ def consCapEV(x):
     EVen=0
     y=[]
     y=x[:N*Mev]
-    for i in range(0,N):
+    for i in range(0,N+1):
         for j in range(0,Mev):
             cons=cons+ (deltat*y[i+j]*PmaxEV[j])+EnInitEV[j]
     for j in range(0,Mev):
@@ -156,6 +158,7 @@ def consBVaccumulate2(x):
     return -cons-BVStart+BVCap
 
 def main(PVfilename,EVfilename,BVfilename):
+    Consumption=[]
     ReadEnergyPV(PVfilename)
     ReadPmax(EVfilename,BVfilename)
     #AdjustLen()
@@ -176,10 +179,17 @@ def main(PVfilename,EVfilename,BVfilename):
             {'type': 'ineq','fun' : consEVdemand},
             {'type': 'ineq','fun' : consBVaccumulate},
             {'type': 'ineq','fun' : consBVaccumulate2})
-    res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons, options={'ftol':0.1 ,'disp': True,'maxiter': 50})
+    res=minimize(function,xij,method='L-BFGS-B',bounds=bnds,constraints=cons,options={'disp': True, 'maxls': 20, 'iprint': -1, 'gtol': 1e-05, 'eps': 1e-08, 'maxiter': 15000, 'ftol': 2.220446049250313e-09, 'maxcor': 10, 'maxfun': 15000})
     print(res.x)
     for i in res.x:
-       print(i,end=' ')
+       print(i,end=',')
+
+    xr=res.x[0:Mev*N]
+    yr=res.x[Mev*N+1:]
+    Consumption=CalculateConsumption(xr,yr)
+    PlotGraph.SingleDraw(ts,EPV,"Production (kWh)")
+    PlotGraph.SingleDraw(ts,Consumption,"Consumption (kWh)")
+
 
 if __name__ == '__main__':
-    main("2021-09-25_PVenergy.csv","EVenergyandPmax.csv","BVenergyandPmax.csv")
+    main("2021-09-26_PVenergy.csv","EVenergyandPmax.csv","BVenergyandPmax.csv")
