@@ -16,10 +16,11 @@ def substring_after(s, delim):
 def ReadProfile(filepath):
     x=[]
     y=[]
+    z=[]
     empty_lines=0
     filename=substring_after(filepath,"2021")
     filename="2021"+filename
-    with open("./csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("../csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader=csv.reader(inputcsv)
         for riga in reader:
             if not riga:
@@ -27,15 +28,17 @@ def ReadProfile(filepath):
                 continue
             x.append(riga[0])
             y.append(riga[1])
-    #print(x,y)
+    for i in range(0,len(y)-1):
+        z.append(float(y[i+1])-float(y[0]))
     filename=substring_after(filepath,"2021")
     filename="2021"+filename
     filename=filename[0:10]+"_PVenergy.csv"
-    return filename,x,y
+    return x,z,filename
 
 def interp(x,y,filepath):
     dtime=[]
     tm=[]
+    x=x[:-1]
     date=substring_after(filepath,"2021")
     date="2021"+date
     date=date[0:10]
@@ -52,22 +55,22 @@ def interp(x,y,filepath):
     ax=plt.gca()
     xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
     ax.xaxis.set_major_formatter(xfmt)
-    plt.plot(dtime,ynew)
-    plt.show()
+    #plt.plot(dtime,ynew)
+    #plt.show()
     return timestamps,dtime,ynew
 
 def WriteCSV(timestamps,date,PVenergy,filename):
-    with open("./csv/"+filename, 'w+', newline='') as outputcsv:
+    with open("../csv/"+filename, 'w+', newline='') as outputcsv:
         writer = csv.writer(outputcsv)
         for x,y,z in zip(timestamps,date,PVenergy):
-            writer.writerow([x,y,z/1000])
+            writer.writerow([x,y,z])
+
 
 def main(filepath):
-    filename,x,y=ReadProfile(filepath)
+    x,y,filename=ReadProfile(filepath)
     timestamps,date,PVenergy=interp(x,y,filepath)
     WriteCSV(timestamps,date,PVenergy,filename)
     return filename
-'''
+
 if __name__ == '__main__':
     main("http://localhost/demo/12_12_15_145/2021-09-26-b734beb8-cd3a-4e19-a0b7-e9ef1d0e4275.csv")
-'''
