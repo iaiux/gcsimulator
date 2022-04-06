@@ -9,11 +9,13 @@ def SoCCapsPmaxEVCreator(CapsEV,EVid1,SoCsEV,EVid2,Pmax,filename):
         for id,cap,soc,p in zip(x_s,y_s,b_s,Pmax):
             writer.writerow([id, cap,soc,cap*soc,cap-(cap*soc),p]) #cap*soc è l'energia ancora nella EV
                                                                 #cap-(cap*soc) è l'energia richiesta
+    return filename
 def BVeneryPmaxCreator(BVid,CapsBV,SoCsBV,Pmax,filename):
     with open("./csv/"+filename, 'w+', newline='') as outputcsv:
         writer=csv.writer(outputcsv)
         for id,cap,soc,p in zip(BVid,CapsBV,SoCsBV,Pmax):
             writer.writerow([id, cap,soc,cap*soc,cap-(cap*soc),p])
+    return filename
 '''
 if __name__ == '__main__':
     SoCCapsPmaxEVCreator([10.5, 31.5, 75.0, 52.0, 52.0],

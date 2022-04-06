@@ -5,13 +5,13 @@ import json
 import threading
 import utils.CreateCSV
 import utils.CreateCSandEV
-import utils.CreatePmax
 import utils.pareto
 import utils.scatter
 import subprocess
 import utils.ReadInterpolatePVProfile
 import utils.CreateBVandEVenergyandPmax
 import utils.EnergyOptimizer
+
 
 EVlat = []
 EVlong = []
@@ -50,17 +50,14 @@ def getLatLon(jsonRequest):
         return None, None, None
 
 def getRequest(count):
-    # r =requests.get("http://parsec2.unicampania.it:10021/getmessage")
-    # r =requests.get("http://127.0.0.1:10021/getmessage")
+
     r = requests.get("http://greencharge.simulator:10021/getmessage")
     json_object = json.loads(r.text)
-    # pairs = json_object.items()
     message = json_object['message']
     subject = ""
     print(json_object)
-    if message != "no new message":  # ho dovuto mettere questo if perché se non lo mettessi
-        subject = message['subject']  # quando il messaggio è no new message non ha subject e quindi
-    # mi va in errore perché non è un dict
+    if message != "no new message":
+        subject = message['subject']
     if subject == "CREATE_EV":
         dict_EV[message['id']] = message
         EVmaxpow.append(float(message["max_ch_pow_ac"]))
@@ -94,12 +91,9 @@ def getRequest(count):
         print("CSLongs: ", CSlong)
         count += 1
         print("Avvio con simulator data " + values + " " + ind_dist)
-        subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
+        #subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
         print("Avvio con opendata")
         utils.CreateCSandEV.main()
-        utils.CreateBVandEVenergyandPmax.SoCCapsPmaxEVCreator(CapsEV,EVid1,SoCsEV,EVid2,EVmaxpow,"EVenergyandPmax.csv")
-        utils.CreateBVandEVenergyandPmax.BVeneryPmaxCreator(BVid,CapsBV,SoCsBV,BVmaxpow,"BVenergyandPmax.csv")
-        PVfilename=utils.ReadInterpolatePVProfile.main(profiles[0])
         subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
         utils.pareto.draw_pareto("out_pareto_simulator.csv", "pareto_simulator.png")
         utils.pareto.draw_pareto("out_pareto_opendata.csv", "pareto_opendata.png")
@@ -107,7 +101,10 @@ def getRequest(count):
         csv = np.genfromtxt("data/values_opendata.csv", delimiter=",")
         n_stations = int(csv[1, 1])  # legge il numero di CS
         utils.scatter.main(n_stations, "opendata")
-        utils.EnergyOptimizer.main(PVfilename,"EVenergyandPmax.csv","BVenergyandPmax.csv")
+        EVfilename=utils.CreateBVandEVenergyandPmax.SoCCapsPmaxEVCreator(CapsEV,EVid1,SoCsEV,EVid2,EVmaxpow,"EVenergyandPmax.csv")
+        BVfilename=utils.CreateBVandEVenergyandPmax.BVeneryPmaxCreator(BVid,CapsBV,SoCsBV,BVmaxpow,"BVenergyandPmax.csv")
+        PVfilename=utils.ReadInterpolatePVProfile.main(profiles[0])
+        utils.EnergyOptimizer.main(PVfilename, EVfilename, BVfilename, 100000)
     threading.Timer(2.0, getRequest, args=(count,)).start()
 
 

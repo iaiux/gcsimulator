@@ -20,7 +20,7 @@ def ReadProfile(filepath):
     empty_lines=0
     filename=substring_after(filepath,"2021")
     filename="2021"+filename
-    with open("../csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader=csv.reader(inputcsv)
         for riga in reader:
             if not riga:
@@ -60,7 +60,7 @@ def interp(x,y,filepath):
     return timestamps,dtime,ynew
 
 def WriteCSV(timestamps,date,PVenergy,filename):
-    with open("../csv/"+filename, 'w+', newline='') as outputcsv:
+    with open("./csv/"+filename, 'w+', newline='') as outputcsv:
         writer = csv.writer(outputcsv)
         for x,y,z in zip(timestamps,date,PVenergy):
             writer.writerow([x,y,z])

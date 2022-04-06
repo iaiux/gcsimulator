@@ -1,15 +1,16 @@
 import csv
 import datetime
+import os
 
 from matplotlib import pyplot as plt
 from numpy import diff
 from scipy.optimize import minimize, Bounds, LinearConstraint
 import numpy as np
 import random
-import PlotGraph
 from datetime import datetime as date
 from datetime import datetime
-
+from datetime import timedelta
+from . import PlotGraph
 
 ts=[]
 EPV=[]
@@ -40,9 +41,10 @@ def function(x):
         temp = temp-EPV[i]
         somma =somma+abs(temp)
 
-    print(somma)
+    print("Evaluating function: " ,somma)
 
     return somma
+
 
 def CalculateConsumption(x,y):
     deltat=float((float(ts[1])-float(ts[0]))/3600)
@@ -61,7 +63,7 @@ def CalculateConsumption(x,y):
     return Consumption
 
 def ReadEnergyPV(PVfilename):
-    with open("../csv/"+PVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+PVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             ts.append(riga[0])
@@ -69,17 +71,17 @@ def ReadEnergyPV(PVfilename):
         #print(ts,EPV)
 
 def ReadPmax(EVfilename,BVfilename):
-    with open("../csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             PmaxEV.append(float(riga[5]))
-    with open("../csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             PmaxBV.append(float(riga[5]))
 
 def ReadEnergyEV(EVfilename):
-    with open("../csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+EVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             CapsEV.append(float(riga[1]))
@@ -87,7 +89,7 @@ def ReadEnergyEV(EVfilename):
             EVdemand.append(float(riga[4]))
     #print(CapsEV,EnInitEV,EVdemand)
 def ReadEnergyBV(BVfilename):
-    with open("../csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/"+BVfilename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         for riga in reader:
             CapsBV.append(float(riga[1]))
@@ -178,11 +180,11 @@ def Deriva(x, y):
 def WriteRes(xr, yr,max,ft):
     today = date.today()
     d1 = today.strftime("%d-%m-%Y")
-    now = datetime.now()
+    now = datetime.now()+timedelta(hours=2)
     current_time = now.strftime("%H-%M-%S")
     date_today = d1 + "_" + current_time
 
-    with open("../csv/output/XIJ_"+date_today+".csv","w+",newline='')as file:
+    with open("./csv/output/XIJ_"+date_today+".csv","w+",newline='')as file:
         writer=csv.writer(file)
         writer.writerow([max,ft])
         for x in xr:
@@ -191,7 +193,7 @@ def WriteRes(xr, yr,max,ft):
             writer.writerow([y])
     return "XIJ_"+date_today
 
-def CreateResults(resfile):
+def CreateResults(resfile,num):
     ts1=[]
     for t in ts:
         ts1.append(float(t)/3600)
@@ -206,6 +208,10 @@ def CreateResults(resfile):
     PlotGraph.SingleDraw(ts,EPV,"Production","kWh","Energy Production Plot")
     PlotGraph.SingleDraw(ts,Consumption,"Consumption","kWh","Energy Consumption Plot")
     PlotGraph.DoubleDraw(ts,EPV,"Production",Consumption,"Consumption","kWh", "Energy Production and Consmuption Plot")
+    PVEnergyCons=calculateEnergyConPV(Consumption,EPV)
+    PlotGraph.TripleDrawEnergies(ts,EPV,Consumption,PVEnergyCons,"Energy Production","Eenergy Consumption","Consumption from PV","kWh","kWh","Energy Plot")
+    SelfC=sum(PVEnergyCons)/sum(EPV)
+    print("Autoconsumo con ",num," iterazioni: ", SelfC)
 
 def ReadRes(filename):
     Mev=len(PmaxEV)
@@ -214,7 +220,7 @@ def ReadRes(filename):
     xij=[]
     yij=[]
     i=0
-    with open("../csv/output/"+filename+".csv", newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("./csv/output/"+filename+".csv", newline="", encoding="ISO-8859-1") as inputcsv:
         reader = csv.reader(inputcsv,delimiter=",")
         next(reader)
         for riga in reader:
@@ -225,8 +231,17 @@ def ReadRes(filename):
             i=i+1
     return xij,yij
 
+def calculateEnergyConPV(Consumption,EPV):
+    res=[]
+    for i in range(0,len(EPV)):
+        if EPV[i]>=Consumption[i]:
+            res.append(Consumption[i])
+        else:
+            res.append(EPV[i])
+    return res
 
-def main(PVfilename,EVfilename,BVfilename):
+
+def main(PVfilename,EVfilename,BVfilename,max):
     ReadEnergyPV(PVfilename)
     ReadPmax(EVfilename,BVfilename)
     ReadEnergyEV(EVfilename)
@@ -246,21 +261,30 @@ def main(PVfilename,EVfilename,BVfilename):
             {'type': 'ineq','fun' : consEVdemand},
             {'type': 'ineq','fun' : consBVaccumulate},
             {'type': 'ineq','fun' : consBVaccumulate2})
-    max=10000
     ft=1e-3
     res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons,options={'disp': True, 'maxiter': max, 'ftol':ft})
-    print(res.x)
-    for i in res.x:
-       print(i,end=',')
+    print(res)
+    #for i in res.x:
+       #print(i,end=',')
     xr=res.x[0:Mev*N]
     yr=res.x[Mev*N+1:]
     resfile=WriteRes(xr,yr,max,ft)
-    CreateResults(resfile)
+    CreateResults(resfile,max)
 
+
+'''
 if __name__ == '__main__':
-    #main("2021-09-26_PVenergy.csv","EVenergyandPmax.csv","BVenergyandPmax.csv")
+    #main("2021-09-26_PVenergy.csv","EVenergyandPmax.csv","BVenergyandPmax.csv",30)
     ReadEnergyPV("2021-09-26_PVenergy.csv")
     ReadPmax("EVenergyandPmax.csv","BVenergyandPmax.csv")
     ReadEnergyEV("EVenergyandPmax.csv")
     ReadEnergyBV("BVenergyandPmax.csv")
     CreateResults("XIJ_05-04-2022_15-31-49")
+    xr,yr=ReadRes("XIJ_05-04-2022_15-31-49")
+    Consumption=CalculateConsumption(xr,yr)
+    res=calculateEnergyConPV(Consumption,EPV)
+    SelfC=sum(res)/sum(EPV)
+    print(SelfC)
+    #PlotGraph.SingleDraw(ts,SelfC,"Self-Consumption","","Self-Consumption Plot")
+    #PlotGraph.TripleDrawEnergies(ts,EPV,Consumption,SelfC,"Energy Production","Eenergy Consumption","Self-Consumption","kWh","","Self-Consumption and Energy Plot")
+'''
