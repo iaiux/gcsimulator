@@ -394,8 +394,8 @@
 		</ecar>
 	</fleet>
 	<chargingStation id="18" peakLoad="22" code="P2D1L3" CPinfo="4">
-		<lat>40.9615476411</lat>
-		<long>14.2631077766</long>
+		<lat>40.9865142083</lat>
+		<long>14.1757206699</long>
 		<user id="0">
 			<device>
 				<name>pv_535</name>
@@ -481,8 +481,8 @@
 		</user>
 	</chargingStation>
 	<chargingStation id="19" peakLoad="70" code="P2D1L1" CPinfo="6">
-		<lat>40.9622413607</lat>
-		<long>14.2500896752</long>
+		<lat>40.9943559341</lat>
+		<long>14.2158271372</long>
 		<user id="0">
 			<device>
 				<name>pv_534</name>
@@ -530,13 +530,13 @@
 		</user>
 	</chargingStation>
 	<chargingStation id="20" peakLoad="22" code="P2D1L2" CPinfo="2">
-		<lat>40.9615292093</lat>
-		<long>14.2631399632</long>
+		<lat>41.000512441</lat>
+		<long>14.2093670368</long>
 		<user id="0"/>
 	</chargingStation>
 	<chargingStation id="21" peakLoad="150" code="P2D1L4" CPinfo="6">
-		<lat>40.9615332603</lat>
-		<long>14.2631292343</long>
+		<lat>40.9368985474</lat>
+		<long>14.2643060761</long>
 		<user id="0"/>
 	</chargingStation>
 </Neighborhood>

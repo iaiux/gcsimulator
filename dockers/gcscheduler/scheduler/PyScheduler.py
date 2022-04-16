@@ -91,7 +91,7 @@ def getRequest(count):
         print("CSLongs: ", CSlong)
         count += 1
         print("Avvio con simulator data " + values + " " + ind_dist)
-        #subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
+        subprocess.call("python3 utils/multi_obiettivo.py " + values + " " + ind_dist + " " + "simulator", shell=True)
         print("Avvio con opendata")
         utils.CreateCSandEV.main()
         subprocess.call("python3 utils/multi_obiettivo.py values_opendata.csv ind_distance_opendata.csv opendata",shell=True)
@@ -104,7 +104,8 @@ def getRequest(count):
         EVfilename=utils.CreateBVandEVenergyandPmax.SoCCapsPmaxEVCreator(CapsEV,EVid1,SoCsEV,EVid2,EVmaxpow,"EVenergyandPmax.csv")
         BVfilename=utils.CreateBVandEVenergyandPmax.BVeneryPmaxCreator(BVid,CapsBV,SoCsBV,BVmaxpow,"BVenergyandPmax.csv")
         PVfilename=utils.ReadInterpolatePVProfile.main(profiles[0])
-        utils.EnergyOptimizer.main(PVfilename, EVfilename, BVfilename, 100000)
+        niter=170
+        utils.EnergyOptimizer.main(PVfilename, EVfilename, BVfilename, 170)
     threading.Timer(2.0, getRequest, args=(count,)).start()
 
 

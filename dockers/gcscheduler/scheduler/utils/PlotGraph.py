@@ -11,7 +11,8 @@ import numpy as np
 def name_of_file():
     today = datx.today()
     d1 = today.strftime("%d-%m-%Y")
-    now = dt.datetime.now()+timedelta(hours=2)
+    #now = dt.datetime.now()+timedelta(hours=2)
+    now = dt.datetime.now()
     current_time = now.strftime("%H-%M-%S")
     date_today = d1 + "_" + current_time
     return date_today
@@ -19,7 +20,7 @@ def name_of_file():
 def ReadProduction(filename):
     x=[]
     y=[]
-    with open("./csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("../csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader=csv.reader(inputcsv)
         for riga in reader:
             x.append(riga[0])
@@ -41,8 +42,28 @@ def SingleDraw(ts,Values,lab,ylab,tit):
     plt.ylabel(ylab)
     plt.legend()
     filename=name_of_file()
+    plt.savefig("../csv/output/figures/"+filename+"_"+tit+".png")
+    #plt.show()
+def DoubleDrawFill(ts,y1,label1,y2,label2,ylab,tit):
+    plt.figure()
+    dtime=[]
+    for i in ts:
+        dtime.append(datx.fromtimestamp(int(float(i))))
+    plt.subplots_adjust(bottom=0.2)
+    plt.xticks(rotation=25)
+    ax=plt.gca()
+    xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
+    ax.xaxis.set_major_formatter(xfmt)
+    labels = [label1,label2]
+    plt.plot(dtime,y1)
+    plt.plot(dtime,y2)
+    plt.title(tit)
+    plt.ylabel(ylab)
+    plt.legend(labels)
+    plt.fill_between(dtime,y1,y2,color="green",label='Self-Consumption')
+    filename=name_of_file()
     plt.savefig("./csv/output/figures/"+filename+"_"+tit+".png")
-    plt.show()
+
 def DoubleDraw(ts,y1,label1,y2,label2,ylab,tit):
     plt.figure()
     dtime=[]
@@ -60,7 +81,7 @@ def DoubleDraw(ts,y1,label1,y2,label2,ylab,tit):
     plt.ylabel(ylab)
     plt.legend(labels)
     filename=name_of_file()
-    plt.savefig("./csv/output/figures/"+filename+"_"+tit+".png")
+    plt.savefig("../csv/output/figures/"+filename+"_"+tit+".png")
 
 def TripleDraw(x,y1,y2,bar3,label1,label2,label3,ylab1,ylab2,tit):
     dtime=[]
@@ -85,7 +106,8 @@ def TripleDraw(x,y1,y2,bar3,label1,label2,label3,ylab1,ylab2,tit):
     ax2.grid(False) # turn off grid #2
     plt.legend(loc="upper left")
     filename=name_of_file()
-    plt.savefig("./csv/output/figures/"+filename+"_"+tit+".png")
+    plt.savefig("../csv/output/figures/"+filename+"_"+tit+".png")
+
 def TripleDrawEnergies(x,y1,y2,bar3,label1,label2,label3,ylab1,ylab2,tit):
     dtime=[]
     for i in x:
@@ -109,7 +131,7 @@ def TripleDrawEnergies(x,y1,y2,bar3,label1,label2,label3,ylab1,ylab2,tit):
     ax2.grid(False) # turn off grid #2
     plt.legend(loc="upper left")
     filename=name_of_file()
-    plt.savefig("./csv/output/figures/"+filename+"_"+tit+".png")
+    plt.savefig("../csv/output/figures/"+filename+"_"+tit+".png")
 
 '''
 if __name__ == '__main__':

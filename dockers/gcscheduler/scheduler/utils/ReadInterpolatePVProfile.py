@@ -1,6 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from numpy import diff
 from scipy.interpolate import interp1d
 import matplotlib.dates as md
 import datetime as dt
@@ -20,7 +21,7 @@ def ReadProfile(filepath):
     empty_lines=0
     filename=substring_after(filepath,"2021")
     filename="2021"+filename
-    with open("./csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
+    with open("../csv/"+filename, newline="", encoding="ISO-8859-1") as inputcsv:
         reader=csv.reader(inputcsv)
         for riga in reader:
             if not riga:
@@ -28,17 +29,14 @@ def ReadProfile(filepath):
                 continue
             x.append(riga[0])
             y.append(riga[1])
-    for i in range(0,len(y)-1):
-        z.append(float(y[i+1])-float(y[0]))
     filename=substring_after(filepath,"2021")
     filename="2021"+filename
-    filename=filename[0:10]+"_PVenergy.csv"
-    return x,z,filename
+    filename=filename[0:10]+"_PVcumulativeenergy.csv"
+    return x,y,filename
 
 def interp(x,y,filepath):
     dtime=[]
     tm=[]
-    x=x[:-1]
     date=substring_after(filepath,"2021")
     date="2021"+date
     date=date[0:10]
@@ -55,12 +53,10 @@ def interp(x,y,filepath):
     ax=plt.gca()
     xfmt = md.DateFormatter('%Y-%m-%d %H:%M:%S')
     ax.xaxis.set_major_formatter(xfmt)
-    #plt.plot(dtime,ynew)
-    #plt.show()
     return timestamps,dtime,ynew
 
 def WriteCSV(timestamps,date,PVenergy,filename):
-    with open("./csv/"+filename, 'w+', newline='') as outputcsv:
+    with open("../csv/"+filename, 'w+', newline='') as outputcsv:
         writer = csv.writer(outputcsv)
         for x,y,z in zip(timestamps,date,PVenergy):
             writer.writerow([x,y,z])
@@ -73,4 +69,4 @@ def main(filepath):
     return filename
 
 if __name__ == '__main__':
-    main("http://localhost/demo/12_12_15_145/2021-09-26-b734beb8-cd3a-4e19-a0b7-e9ef1d0e4275.csv")
+    main("http://localhost/demo/12_12_15_145/2021-09-25-b734beb8-cd3a-4e19-a0b7-e9ef1d0e4275.csv")
