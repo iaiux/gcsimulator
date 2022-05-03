@@ -182,6 +182,23 @@ def consBVaccumulate2(x):
                 return -1
     return 1
 
+def consPowerLimit(x):
+    deltat=float((float(ts[1])-float(ts[0])))/3600
+    N=len(ts)
+    Mbv=len(PmaxBV)
+    Mev=len(PmaxEV)
+    y=x[N*Mev:]
+    x=x[:N*Mev]
+    for i in range(0,N):
+        temp=0
+        for j in range (0,Mev):
+            temp=temp+(x[i*Mev+j]*PmaxEV[j])
+        for j in range (0,Mbv):
+            temp=temp+(y[i*Mbv+j]*PmaxBV[j])
+        if temp >5:
+            return -1
+    return 1
+
 def Deriva(x, y):
     x = np.array(x)
     y= np.array(y)
@@ -260,9 +277,9 @@ def calculateEnergyConPV(Consumption):
 def main(PVfilename,EVfilename,BVfilename,max):
     global EnergyProd
     ReadEnergyPV(PVfilename)
-    ReadPmax(EVfilename,BVfilename,5,1)
+    ReadPmax(EVfilename,BVfilename,5,6)
     ReadEnergyEV(EVfilename,5)
-    ReadEnergyBV(BVfilename,1)
+    ReadEnergyBV(BVfilename,6)
     EnergyProd=diff(EPV)
     print(len(EPV),len(EnergyProd))
     N=len(ts)
@@ -279,11 +296,12 @@ def main(PVfilename,EVfilename,BVfilename,max):
     cons = ({'type': 'ineq','fun' : consCapEV},
             {'type': 'ineq','fun' : consEVdemand},
             {'type': 'ineq','fun' : consBVaccumulate},
-            {'type': 'ineq','fun' : consBVaccumulate2})
+            {'type': 'ineq','fun' : consBVaccumulate2},
+            {'type': 'ineq','fun' : consPowerLimit})
 
     ft=1e-3
 
-    res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons,options={'disp': True, 'ftol':ft})
+    res=minimize(function,xij,method='SLSQP',bounds=bnds,constraints=cons,options={'disp': True, 'ftol':ft, 'maxiter':max})
     print(res)
     #for i in res.x:
        #print(i,end=',')
